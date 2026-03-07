@@ -304,7 +304,10 @@ export default function Navbar({
                       <UserIcon className="w-4 h-4" /> Profile
                     </Button>
                     <Button
-                      onClick={() => setLogoutDialogOpen(true)}
+                      onClick={() => {
+                        setMobileMenuOpen(false);
+                        setLogoutDialogOpen(true);
+                      }}
                       variant="ghost"
                       className="mobile-auth-btn"
                     >

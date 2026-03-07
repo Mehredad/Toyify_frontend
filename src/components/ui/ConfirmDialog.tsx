@@ -1,4 +1,3 @@
-// components/common/ConfirmDialog.tsx
 "use client";
 
 import {
@@ -10,6 +9,8 @@ import {
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle,
+  AlertDialogOverlay,
+  AlertDialogPortal,
 } from "@/components/ui/alert-dialog";
 
 interface ConfirmDialogProps {
@@ -35,22 +36,25 @@ export function ConfirmDialog({
 }: ConfirmDialogProps) {
   return (
     <AlertDialog open={open} onOpenChange={onOpenChange}>
-      <AlertDialogContent>
-        <AlertDialogHeader>
-          <AlertDialogTitle>{title}</AlertDialogTitle>
-          <AlertDialogDescription>{description}</AlertDialogDescription>
-        </AlertDialogHeader>
+      <AlertDialogPortal>
+        <AlertDialogOverlay className="fixed inset-0 z-[200] bg-black/50" />
+        <AlertDialogContent className="z-[201]">
+          <AlertDialogHeader>
+            <AlertDialogTitle>{title}</AlertDialogTitle>
+            <AlertDialogDescription>{description}</AlertDialogDescription>
+          </AlertDialogHeader>
 
-        <AlertDialogFooter>
-          <AlertDialogCancel>{cancelText}</AlertDialogCancel>
-          <AlertDialogAction
-            onClick={onConfirm}
-            className={destructive ? "bg-red-600 hover:bg-red-700 text-white" : ""}
-          >
-            {confirmText}
-          </AlertDialogAction>
-        </AlertDialogFooter>
-      </AlertDialogContent>
+          <AlertDialogFooter>
+            <AlertDialogCancel>{cancelText}</AlertDialogCancel>
+            <AlertDialogAction
+              onClick={onConfirm}
+              className={destructive ? "bg-red-600 hover:bg-red-700 text-white" : ""}
+            >
+              {confirmText}
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialogPortal>
     </AlertDialog>
   );
 }
