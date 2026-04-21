@@ -1,0 +1,16 @@
+/* Shared preview card shell */
+@import url('../colors_and_type.css');
+
+* { box-sizing: border-box; }
+html, body {
+  margin: 0;
+  padding: 0;
+  font-family: var(--font-body);
+  color: var(--text-body);
+  background: #fff;
+  -webkit-font-smoothing: antialiased;
+}
+body { padding: 20px; }
+.card {
+  width: 100%;
+}

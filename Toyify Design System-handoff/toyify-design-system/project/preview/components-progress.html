@@ -1,0 +1,27 @@
+<!doctype html><html><head><meta charset="utf-8"><link rel="stylesheet" href="_shell.css">
+<style>
+  h3 { font: 600 12px var(--font-ui); color: var(--gray-500); letter-spacing: .08em; text-transform: uppercase; margin: 0 0 10px; }
+  .wrap { padding: 8px 4px; }
+  .track { position: relative; height: 4px; background: var(--gray-200); border-radius: 999px; margin: 32px 8px 8px; }
+  .fill { position: absolute; left:0; top:0; bottom:0; width: 42%; background: var(--purple-600); border-radius: 999px; }
+  .steps { display:flex; justify-content: space-between; position: relative; margin: 0 -12px; margin-top:-42px }
+  .step { display:flex; flex-direction:column; align-items:center; gap: 6px; width: 60px;}
+  .dot { width: 32px; height: 32px; border-radius: 999px; background: #fff; border: 2px solid var(--gray-300); display:flex;align-items:center;justify-content:center;font: 700 12px var(--font-ui); color: var(--gray-500);}
+  .step.done .dot { background: var(--purple-600); border-color:var(--purple-600); color: #fff; }
+  .step.active .dot { background: #fff; border-color: var(--purple-600); color: var(--purple-700); box-shadow: 0 0 0 4px var(--purple-100); }
+  .lab { font: 600 11px var(--font-body); color: var(--gray-500);}
+  .step.active .lab { color: var(--purple-800);}
+  .step.done .lab { color: var(--gray-700);}
+</style></head><body>
+  <h3>Progress — 5-step journey indicator</h3>
+  <div class="wrap">
+    <div class="track"><div class="fill"></div></div>
+    <div class="steps">
+      <div class="step done"><div class="dot">✓</div><div class="lab">Upload</div></div>
+      <div class="step done"><div class="dot">✓</div><div class="lab">Preview</div></div>
+      <div class="step active"><div class="dot">3</div><div class="lab">Customise</div></div>
+      <div class="step"><div class="dot">4</div><div class="lab">Story</div></div>
+      <div class="step"><div class="dot">5</div><div class="lab">Checkout</div></div>
+    </div>
+  </div>
+</body></html>

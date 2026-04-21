@@ -1,0 +1,25 @@
+<!doctype html><html><head><meta charset="utf-8"><link rel="stylesheet" href="_shell.css">
+<style>
+  .row { display: grid; grid-template-columns: repeat(10, 1fr); gap: 8px; }
+  .sw { aspect-ratio: 1; border-radius: 12px; position: relative; display: flex; align-items: flex-end; padding: 8px; }
+  .sw b { font: 600 10px var(--font-ui); color: #fff; mix-blend-mode: difference; letter-spacing: 0.02em; }
+  .sw.light b { color: var(--gray-800); mix-blend-mode: normal; }
+  h3 { font: 600 12px var(--font-ui); color: var(--gray-500); letter-spacing: .08em; text-transform: uppercase; margin: 0 0 10px; }
+  .grad { margin-top: 14px; height: 44px; border-radius: 12px; background: var(--purple-gradient); display:flex; align-items:center; padding: 0 14px; }
+  .grad b { font: 600 11px var(--font-ui); color: #fff; letter-spacing: .05em; }
+</style></head><body>
+  <h3>Brand purple — the signature gradient</h3>
+  <div class="row">
+    <div class="sw light" style="background:var(--purple-50)"><b>50</b></div>
+    <div class="sw light" style="background:var(--purple-100)"><b>100</b></div>
+    <div class="sw light" style="background:var(--purple-200)"><b>200</b></div>
+    <div class="sw light" style="background:var(--purple-300)"><b>300</b></div>
+    <div class="sw" style="background:var(--purple-400)"><b>400</b></div>
+    <div class="sw" style="background:var(--purple-500)"><b>500</b></div>
+    <div class="sw" style="background:var(--purple-600)"><b>600</b></div>
+    <div class="sw" style="background:var(--purple-700)"><b>700</b></div>
+    <div class="sw" style="background:var(--purple-800)"><b>800</b></div>
+    <div class="sw" style="background:var(--purple-900)"><b>900</b></div>
+  </div>
+  <div class="grad"><b>linear-gradient(to top right, #42307D → #7F56D9)</b></div>
+</body></html>

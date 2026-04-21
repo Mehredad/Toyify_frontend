@@ -1,0 +1,17 @@
+<!doctype html><html><head><meta charset="utf-8"><link rel="stylesheet" href="_shell.css">
+<style>
+  h3 { font: 600 12px var(--font-ui); color: var(--gray-500); letter-spacing: .08em; text-transform: uppercase; margin: 0 0 10px; }
+  .row { display:grid; grid-template-columns: repeat(6, 1fr); gap: 16px; }
+  .box { background: #fff; border-radius: 16px; height: 80px; display:flex; align-items:flex-end; padding: 10px; font: 500 11px var(--font-mono); color: var(--gray-500); }
+  .glow { background: var(--purple-600); color:#fff; }
+</style></head><body>
+  <h3>Elevation — neutral drop shadows; purple glow only for brand CTAs</h3>
+  <div class="row">
+    <div class="box" style="box-shadow:var(--shadow-xs)">xs</div>
+    <div class="box" style="box-shadow:var(--shadow-sm)">sm</div>
+    <div class="box" style="box-shadow:var(--shadow-md)">md</div>
+    <div class="box" style="box-shadow:var(--shadow-lg)">lg</div>
+    <div class="box" style="box-shadow:var(--shadow-xl)">xl</div>
+    <div class="box glow" style="box-shadow:var(--glow-purple);border-radius:9999px;justify-content:center;align-items:center">glow-purple</div>
+  </div>
+</body></html>

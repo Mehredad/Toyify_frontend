@@ -1,0 +1,41 @@
+<!doctype html><html><head><meta charset="utf-8"><link rel="stylesheet" href="_shell.css">
+<style>
+  h3 { font: 600 12px var(--font-ui); color: var(--gray-500); letter-spacing: .08em; text-transform: uppercase; margin: 0 0 10px; }
+  .col-title { font: 600 11px var(--font-ui); color: var(--gray-700); margin: 14px 0 6px; }
+  .row { display: grid; grid-template-columns: repeat(7, 1fr); gap: 8px; }
+  .sw { aspect-ratio: 1; border-radius: 12px; display:flex; align-items:flex-end; padding:8px; }
+  .sw b { font: 600 10px var(--font-ui); color: #fff; }
+  .sw.light b { color: var(--gray-800); }
+</style></head><body>
+  <h3>Accents — pink primary, amber secondary, teal STEM pair</h3>
+  <div class="col-title">Pink (shadcn <code style="font-family:var(--font-mono)">--primary: 323 81% 65%</code>)</div>
+  <div class="row">
+    <div class="sw light" style="background:var(--pink-50)"><b>50</b></div>
+    <div class="sw light" style="background:var(--pink-100)"><b>100</b></div>
+    <div class="sw light" style="background:var(--pink-200)"><b>200</b></div>
+    <div class="sw light" style="background:var(--pink-300)"><b>300</b></div>
+    <div class="sw" style="background:var(--pink-400)"><b>400</b></div>
+    <div class="sw" style="background:var(--pink-500)"><b>500</b></div>
+    <div class="sw" style="background:var(--pink-700)"><b>700</b></div>
+  </div>
+  <div class="col-title">Amber (shadcn <code style="font-family:var(--font-mono)">--secondary: 43 100% 63%</code>)</div>
+  <div class="row">
+    <div class="sw light" style="background:var(--amber-50)"><b>50</b></div>
+    <div class="sw light" style="background:var(--amber-100)"><b>100</b></div>
+    <div class="sw light" style="background:var(--amber-200)"><b>200</b></div>
+    <div class="sw light" style="background:var(--amber-300)"><b>300</b></div>
+    <div class="sw light" style="background:var(--amber-400)"><b>400</b></div>
+    <div class="sw" style="background:var(--amber-500)"><b>500</b></div>
+    <div class="sw" style="background:var(--amber-700)"><b>700</b></div>
+  </div>
+  <div class="col-title">Teal — gender-neutral STEM pair</div>
+  <div class="row">
+    <div class="sw light" style="background:var(--teal-50)"><b>50</b></div>
+    <div class="sw light" style="background:var(--teal-100)"><b>100</b></div>
+    <div class="sw light" style="background:var(--teal-300)"><b>300</b></div>
+    <div class="sw" style="background:var(--teal-500)"><b>500</b></div>
+    <div class="sw" style="background:var(--teal-700)"><b>700</b></div>
+    <div class="sw light" style="background:transparent;border:1px dashed var(--border-default)"><b style="color:var(--gray-500)">—</b></div>
+    <div class="sw light" style="background:transparent;border:1px dashed var(--border-default)"><b style="color:var(--gray-500)">—</b></div>
+  </div>
+</body></html>

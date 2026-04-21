@@ -1,0 +1,320 @@
+/* =========================================================================
+   TOYIFY DESIGN SYSTEM — Colors & Type
+   -------------------------------------------------------------------------
+   Source: Mehredad/Toyify_frontend (Lovable/shadcn + Tailwind)
+   Palette is a hot-pink primary + amber secondary on top of a purple
+   brand gradient. We've added explicit scales + semantic tokens on top
+   of the repo's shadcn HSL vars so the system is usable outside Tailwind.
+   ========================================================================= */
+
+@import url('https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&family=Caveat:wght@400;700&family=Permanent+Marker&family=Inter:wght@400;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap');
+
+:root {
+  /* ---------- BRAND PURPLE (gradient + surface) ---------- */
+  /* Taken directly from MainLayout's bg-gradient-to-tr and repo hex codes. */
+  --purple-50:  #F9F5FF;
+  --purple-100: #F4EBFF;
+  --purple-200: #E9D7FE;
+  --purple-300: #D6BBFB;
+  --purple-400: #B692F6;
+  --purple-500: #9E77ED;   /* accent heading colour + upload border */
+  --purple-600: #7F56D9;   /* primary-action purple (CTA, checkbox) */
+  --purple-700: #6941C6;
+  --purple-800: #53389E;   /* breadcrumb link */
+  --purple-900: #42307D;   /* deep brand, headlines, gradient top */
+
+  --purple-gradient: linear-gradient(to top right, #42307D 0%, #7F56D9 100%);
+  --purple-gradient-radial: radial-gradient(120% 120% at 0% 0%, #42307D 0%, #7F56D9 70%, #9E77ED 100%);
+
+  /* ---------- PINK (shadcn --primary: 323 81% 65%) ---------- */
+  --pink-50:  #FDF2F8;
+  --pink-100: #FCE7F3;
+  --pink-200: #FBCFE8;
+  --pink-300: #F9A8D4;
+  --pink-400: #F472B6;
+  --pink-500: #EC4899;   /* sparkle button, accent */
+  --pink-600: #DB2777;
+  --pink-700: #BE185D;
+
+  /* ---------- AMBER (shadcn --secondary: 43 100% 63%) ---------- */
+  --amber-50:  #FFFBEB;
+  --amber-100: #FEF3C7;
+  --amber-200: #FDE68A;
+  --amber-300: #FCD34D;
+  --amber-400: #FBBF24;   /* secondary button fill */
+  --amber-500: #F59E0B;   /* loader gradient top */
+  --amber-600: #D97706;
+  --amber-700: #B45309;   /* loader gradient bottom */
+
+  /* ---------- TEAL / MINT (STEM accent — gender-neutral pair for pink) ---------- */
+  --teal-50:  #F0FDFA;
+  --teal-100: #CCFBF1;
+  --teal-300: #5EEAD4;
+  --teal-500: #14B8A6;
+  --teal-700: #0F766E;
+
+  /* ---------- NEUTRALS (Untitled UI Gray — matches repo #414651, #717680, #D5D7DA) ---------- */
+  --gray-25:  #FDFDFD;
+  --gray-50:  #FAFAFA;
+  --gray-100: #F5F5F5;
+  --gray-200: #E9EAEB;
+  --gray-300: #D5D7DA;   /* borders in Result cards */
+  --gray-400: #A4A7AE;
+  --gray-500: #717680;   /* muted body */
+  --gray-600: #535862;
+  --gray-700: #414651;   /* primary body text */
+  --gray-800: #252B37;
+  --gray-900: #181D27;
+
+  /* ---------- SEMANTIC (kid-safe, WCAG AA on white) ---------- */
+  --success: #12B76A;    /* green tick in Result.tsx */
+  --success-bg: #ECFDF3;
+  --warning: #F79009;
+  --warning-bg: #FFFAEB;
+  --danger:  #F04438;    /* destructive */
+  --danger-bg:  #FEF3F2;
+  --info:    #2E90FA;
+  --info-bg: #EFF8FF;
+
+  /* ---------- SURFACES ---------- */
+  --bg-app: #FFFFFF;                       /* inner white card on gradient */
+  --bg-canvas: var(--purple-gradient);     /* MainLayout backdrop */
+  --bg-subtle: var(--purple-50);           /* upload-drop hover, toy-preview tiles */
+  --bg-elevated: #FFFFFF;
+  --bg-muted: var(--gray-100);
+
+  /* ---------- TEXT ---------- */
+  --text-display: var(--purple-900);   /* H1 Toyify headlines */
+  --text-brand:   var(--purple-600);   /* brand word / highlighted span */
+  --text-body:    var(--gray-700);
+  --text-muted:   var(--gray-500);
+  --text-inverse: #FFFFFF;
+  --text-link:    var(--purple-800);
+
+  /* ---------- BORDER / RING ---------- */
+  --border-subtle: var(--gray-200);
+  --border-default: var(--gray-300);
+  --border-brand: var(--purple-300);
+  --border-dashed-idle: var(--purple-500);
+  --border-dashed-active: var(--purple-600);
+  --ring-focus: var(--purple-600);
+
+  /* =====================================================================
+     TYPOGRAPHY
+     Dyslexia-friendly body: Lexend (higher-readability, designed for kids).
+     STEM-modern display: Space Grotesk — geometric-modern with friendly
+     quirks (double-story a, flared l/t), sits between playful and technical.
+     Accent / handwriting: Caveat. Marker: Permanent Marker. Mono: JetBrains.
+     Inter remains the shadcn default for UI chrome/forms.
+     ===================================================================== */
+
+  --font-display: 'Space Grotesk', 'Lexend', system-ui, sans-serif;
+  --font-body:    'Lexend', 'Inter', ui-sans-serif, system-ui, sans-serif;
+  --font-ui:      'Inter', ui-sans-serif, system-ui, sans-serif;
+  --font-handwritten: 'Caveat', cursive;        /* labels, stickers, scribbles */
+  --font-sketchy:     'Permanent Marker', cursive; /* comic titles, SFX */
+  --font-mono:    'JetBrains Mono', ui-monospace, monospace;
+
+  /* Step scale — 1.200 minor third, slightly opened at the top */
+  --fs-2xs: 10px;
+  --fs-xs:  12px;
+  --fs-sm:  14px;
+  --fs-base:16px;
+  --fs-md:  18px;
+  --fs-lg:  20px;
+  --fs-xl:  24px;
+  --fs-2xl: 30px;
+  --fs-3xl: 36px;
+  --fs-4xl: 48px;
+  --fs-5xl: 60px;
+  --fs-6xl: 72px;
+
+  /* Line-heights — generous for dyslexia-friendly reading (≥1.5 on body) */
+  --lh-tight: 1.1;
+  --lh-snug:  1.25;
+  --lh-base:  1.5;
+  --lh-relaxed: 1.65;
+
+  /* Letter-spacing — slightly loose body (dyslexia research) */
+  --ls-tight: -0.02em;
+  --ls-snug:  -0.01em;
+  --ls-base:  0.01em;
+  --ls-wide:  0.04em;
+  --ls-caps:  0.08em;
+
+  /* Weights */
+  --fw-regular: 400;
+  --fw-medium:  500;
+  --fw-semibold:600;
+  --fw-bold:    700;
+  --fw-black:   800;
+
+  /* =====================================================================
+     SPACING (4px base)
+     ===================================================================== */
+  --space-0:  0;
+  --space-1:  4px;
+  --space-2:  8px;
+  --space-3:  12px;
+  --space-4:  16px;
+  --space-5:  20px;
+  --space-6:  24px;
+  --space-7:  32px;
+  --space-8:  40px;
+  --space-9:  48px;   /* min touch target */
+  --space-10: 56px;
+  --space-12: 72px;
+  --space-16: 96px;
+  --space-20: 120px;
+
+  /* =====================================================================
+     RADII — Toyify leans rounded. Buttons rounded-full, cards 16-24px.
+     ===================================================================== */
+  --radius-xs: 6px;
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 20px;
+  --radius-2xl: 24px;   /* Result cards */
+  --radius-3xl: 28px;   /* MainLayout shell */
+  --radius-pill: 9999px;
+
+  /* =====================================================================
+     ELEVATION — soft, toy-like, purple-tinted
+     ===================================================================== */
+  --shadow-xs: 0 1px 2px rgba(16, 24, 40, 0.05);
+  --shadow-sm: 0 1px 3px rgba(16, 24, 40, 0.08), 0 1px 2px rgba(16, 24, 40, 0.04);
+  --shadow-md: 0 4px 8px -2px rgba(16, 24, 40, 0.08), 0 2px 4px -2px rgba(16, 24, 40, 0.04);
+  --shadow-lg: 0 12px 16px -4px rgba(16, 24, 40, 0.08), 0 4px 6px -2px rgba(16, 24, 40, 0.03);
+  --shadow-xl: 0 20px 24px -4px rgba(16, 24, 40, 0.08), 0 8px 8px -4px rgba(16, 24, 40, 0.03);
+  --shadow-2xl: 0 24px 48px -12px rgba(16, 24, 40, 0.18);
+
+  /* Glow (primary brand) — for sparkle button / CTA on gradient */
+  --glow-purple: 0 0 0 4px rgba(127, 86, 217, 0.20), 0 8px 20px rgba(127, 86, 217, 0.35);
+  --glow-pink:   0 0 24px rgba(236, 72, 153, 0.55);
+
+  /* Focus ring */
+  --focus-ring: 0 0 0 4px rgba(127, 86, 217, 0.25);
+
+  /* =====================================================================
+     MOTION — bouncy, playful, short. Kids like fast, elastic feedback.
+     ===================================================================== */
+  --ease-out:    cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);   /* overshoot */
+  --ease-soft:   cubic-bezier(0.4, 0, 0.2, 1);
+  --dur-fast:   150ms;
+  --dur-base:   250ms;
+  --dur-slow:   400ms;
+  --dur-xslow:  700ms;
+}
+
+/* =========================================================================
+   SEMANTIC TYPE RECIPES — tag a DOM node with one of these for baseline.
+   ========================================================================= */
+
+.t-display {
+  font-family: var(--font-display);
+  font-size:   var(--fs-5xl);
+  line-height: var(--lh-tight);
+  letter-spacing: var(--ls-tight);
+  font-weight: var(--fw-bold);
+  color:       var(--text-display);
+}
+
+.t-h1 {
+  font-family: var(--font-display);
+  font-size:   var(--fs-4xl);
+  line-height: var(--lh-tight);
+  letter-spacing: var(--ls-tight);
+  font-weight: var(--fw-bold);
+  color:       var(--text-display);
+}
+
+.t-h2 {
+  font-family: var(--font-display);
+  font-size:   var(--fs-3xl);
+  line-height: var(--lh-snug);
+  letter-spacing: var(--ls-snug);
+  font-weight: var(--fw-semibold);
+  color:       var(--text-display);
+}
+
+.t-h3 {
+  font-family: var(--font-display);
+  font-size:   var(--fs-2xl);
+  line-height: var(--lh-snug);
+  font-weight: var(--fw-semibold);
+  color:       var(--text-display);
+}
+
+.t-h4 {
+  font-family: var(--font-body);
+  font-size:   var(--fs-xl);
+  line-height: var(--lh-snug);
+  font-weight: var(--fw-semibold);
+  color:       var(--text-display);
+}
+
+.t-lead {
+  font-family: var(--font-body);
+  font-size:   var(--fs-lg);
+  line-height: var(--lh-relaxed);
+  font-weight: var(--fw-regular);
+  color:       var(--text-body);
+}
+
+.t-body {
+  font-family: var(--font-body);
+  font-size:   var(--fs-base);
+  line-height: var(--lh-relaxed);  /* 1.65 — dyslexia-friendly */
+  letter-spacing: var(--ls-base);
+  font-weight: var(--fw-regular);
+  color:       var(--text-body);
+}
+
+.t-body-sm {
+  font-family: var(--font-body);
+  font-size:   var(--fs-sm);
+  line-height: var(--lh-base);
+  letter-spacing: var(--ls-base);
+  color:       var(--text-body);
+}
+
+.t-caption {
+  font-family: var(--font-body);
+  font-size:   var(--fs-xs);
+  line-height: var(--lh-base);
+  color:       var(--text-muted);
+  letter-spacing: var(--ls-base);
+}
+
+.t-overline {
+  font-family: var(--font-ui);
+  font-size:   var(--fs-xs);
+  letter-spacing: var(--ls-caps);
+  text-transform: uppercase;
+  font-weight: var(--fw-semibold);
+  color:       var(--text-muted);
+}
+
+.t-handwritten {
+  font-family: var(--font-handwritten);
+  font-weight: var(--fw-bold);
+}
+
+.t-sketchy {
+  font-family: var(--font-sketchy);
+  letter-spacing: var(--ls-wide);
+}
+
+.t-mono {
+  font-family: var(--font-mono);
+  font-size:   var(--fs-sm);
+}
+
+/* Brand-word highlighter — repo uses <span class="text-[#9E77ED]">real toys</span> */
+.t-brand-accent {
+  color: var(--text-brand);
+  font-weight: inherit;
+}

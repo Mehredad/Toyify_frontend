@@ -1,0 +1,40 @@
+<!doctype html><html><head><meta charset="utf-8"><link rel="stylesheet" href="_shell.css">
+<style>
+  h3 { font: 600 12px var(--font-ui); color: var(--gray-500); letter-spacing: .08em; text-transform: uppercase; margin: 0 0 10px; }
+  .grid { display:grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .card { border: 1.5px solid var(--gray-300); border-radius: 18px; padding: 16px; background: #fff; position:relative; }
+  .card.sel { border: 2px solid var(--purple-600); box-shadow: var(--shadow-lg); }
+  .check { position: absolute; top: 12px; left: 12px; width: 20px; height: 20px; border: 2px solid var(--gray-300); border-radius: 4px; background: #fff; }
+  .card.sel .check { background: var(--purple-600); border-color: var(--purple-600); color: #fff; display:flex; align-items:center; justify-content:center; font: 700 12px var(--font-ui);}
+  .price { font: 700 36px var(--font-display); color: var(--gray-900); margin: 14px 0 2px; }
+  .t1 { font: 700 14px var(--font-body); color: var(--gray-900); margin-bottom: 2px;}
+  .vat { font: 500 11px var(--font-body); color: var(--gray-500); margin-bottom: 10px;}
+  ul { list-style: none; padding: 0; margin: 0; display:grid; gap: 6px; }
+  ul li { font: 500 12px var(--font-body); color: var(--gray-700); display:flex; gap: 6px; align-items: flex-start;}
+  .tick { color: var(--success); font-weight: 800; }
+  .x { color: var(--gray-400); }
+</style></head><body>
+  <h3>Pricing cards — Fully Crafted vs DIY (from /result)</h3>
+  <div class="grid">
+    <div class="card sel"><div class="check">✓</div>
+      <div class="price">£39</div><div class="t1">Fully Crafted Toy</div><div class="vat">VAT included</div>
+      <ul>
+        <li><span class="tick">✓</span>Fully crafted & coloured</li>
+        <li><span class="tick">✓</span>Ready in 5-7 working days</li>
+        <li><span class="x">✗</span><span style="color:var(--gray-400)">Colouring set</span></li>
+        <li><span class="tick">✓</span>PLA (Eco-friendly)</li>
+        <li><span class="tick">✓</span>Free shipping</li>
+      </ul>
+    </div>
+    <div class="card"><div class="check"></div>
+      <div class="price">£29</div><div class="t1">DIY Toy</div><div class="vat">VAT included</div>
+      <ul>
+        <li><span class="tick">✓</span>Uncoloured</li>
+        <li><span class="tick">✓</span>Ready in 3-5 working days</li>
+        <li><span class="tick">✓</span>Colouring set</li>
+        <li><span class="tick">✓</span>PLA (Eco-friendly)</li>
+        <li><span class="tick">✓</span>Free shipping</li>
+      </ul>
+    </div>
+  </div>
+</body></html>

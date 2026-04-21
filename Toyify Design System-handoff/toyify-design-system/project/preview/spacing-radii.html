@@ -1,0 +1,36 @@
+<!doctype html><html><head><meta charset="utf-8"><link rel="stylesheet" href="_shell.css">
+<style>
+  h3 { font: 600 12px var(--font-ui); color: var(--gray-500); letter-spacing: .08em; text-transform: uppercase; margin: 0 0 10px; }
+  .row { display:flex; align-items:flex-end; gap: 12px; flex-wrap:wrap; }
+  .s { background: var(--purple-100); border-radius: 4px; display:flex; align-items:flex-end; justify-content:center; padding: 4px; font: 500 10px var(--font-mono); color: var(--purple-800); }
+  .lab { font: 500 10px var(--font-mono); color: var(--gray-500); text-align:center; margin-top:4px; }
+  .group { display:flex; flex-direction:column; align-items:center; }
+  .radii { display:flex; gap: 16px; margin-top: 22px; align-items:center; }
+  .rbox { background: var(--purple-600); width: 56px; height: 56px; display:flex; align-items:center; justify-content:center; color:#fff; font: 600 11px var(--font-ui); }
+</style></head><body>
+  <h3>Spacing — 4px base</h3>
+  <div class="row">
+    <div class="group"><div class="s" style="width:4px;height:16px"></div><div class="lab">4</div></div>
+    <div class="group"><div class="s" style="width:8px;height:16px"></div><div class="lab">8</div></div>
+    <div class="group"><div class="s" style="width:12px;height:16px"></div><div class="lab">12</div></div>
+    <div class="group"><div class="s" style="width:16px;height:16px"></div><div class="lab">16</div></div>
+    <div class="group"><div class="s" style="width:24px;height:16px"></div><div class="lab">24</div></div>
+    <div class="group"><div class="s" style="width:32px;height:16px"></div><div class="lab">32</div></div>
+    <div class="group"><div class="s" style="width:40px;height:16px"></div><div class="lab">40</div></div>
+    <div class="group"><div class="s" style="width:48px;height:16px"></div><div class="lab">48★</div></div>
+    <div class="group"><div class="s" style="width:72px;height:16px"></div><div class="lab">72</div></div>
+    <div class="group"><div class="s" style="width:96px;height:16px"></div><div class="lab">96</div></div>
+  </div>
+  <div style="font:400 11px var(--font-body);color:var(--gray-500);margin-top:8px">★ 48px is the minimum touch target (accessibility + kids)</div>
+
+  <h3 style="margin-top:22px">Radii — rounded is the vibe</h3>
+  <div class="radii">
+    <div class="rbox" style="border-radius:6px">6</div>
+    <div class="rbox" style="border-radius:12px">12</div>
+    <div class="rbox" style="border-radius:16px">16</div>
+    <div class="rbox" style="border-radius:20px">20</div>
+    <div class="rbox" style="border-radius:24px">24</div>
+    <div class="rbox" style="border-radius:28px">28</div>
+    <div class="rbox" style="border-radius:9999px">pill</div>
+  </div>
+</body></html>

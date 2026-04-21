@@ -1,0 +1,22 @@
+<!doctype html><html><head><meta charset="utf-8"><link rel="stylesheet" href="_shell.css">
+<style>
+  h3 { font: 600 12px var(--font-ui); color: var(--gray-500); letter-spacing: .08em; text-transform: uppercase; margin: 0 0 10px; }
+  .row { display:flex; gap: 10px; flex-wrap:wrap; align-items:center; margin-bottom: 14px; }
+  .badge { display:inline-flex; align-items:center; gap: 6px; padding: 4px 10px; border-radius: 9999px; font: 600 12px var(--font-body); }
+  .kicker { background: var(--purple-100); color: var(--purple-800); padding: 4px; padding-right: 10px; font-size: 11px; }
+  .kicker .inner { background: var(--purple-200); color: var(--purple-900); padding: 2px 8px; border-radius: 9999px; font-weight: 700; }
+  .coin { background: linear-gradient(180deg,#FCD34D,#F59E0B); color: #7B3F00; padding: 6px 12px; gap: 6px; box-shadow: inset 0 -2px 0 rgba(0,0,0,.12), 0 2px 6px rgba(245,158,11,.3); border: 1.5px solid #B45309;}
+  .coin .icon { width: 16px; height: 16px; background: radial-gradient(circle at 35% 30%, #FDE68A, #D97706); border-radius: 999px; border: 1px solid #92400E; display:inline-flex; align-items:center; justify-content:center; font: 800 10px var(--font-ui); color:#7B3F00;}
+</style></head><body>
+  <h3>Badges — kicker pill, credit badge, status chips</h3>
+  <div class="row">
+    <span class="badge kicker"><span class="inner">🚀 Let's <b>toyify</b></span> tangible treasures →</span>
+  </div>
+  <div class="row">
+    <span class="badge coin"><span class="icon">¢</span>12 credits left</span>
+    <span class="badge" style="background:var(--success-bg);color:#027A48">✓ Ready in 5-7 days</span>
+    <span class="badge" style="background:var(--info-bg);color:#175CD3">PLA · Eco-friendly</span>
+    <span class="badge" style="background:var(--pink-100);color:var(--pink-700)">New</span>
+    <span class="badge" style="background:var(--purple-100);color:var(--purple-800)">DIY</span>
+  </div>
+</body></html>

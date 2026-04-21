@@ -84,40 +84,40 @@ export default function Home() {
 
       <div className="max-w-6xl mx-auto">
         {/* Breadcrumb */}
-        <div className="bg-[#F4EBFF] inline-flex items-center gap-1 lg:gap-2 text-[10px] lg:text-xs mb-3 lg:mb-4 w-auto p-[4px] lg:p-[5px] rounded-full">
-          <span className="bg-[#E9D7FE] text-[#42307D] px-1.5 lg:px-2 py-0.5 rounded-full text-[10px] lg:text-xs">🚀 Let's <span className="font-bold">toyify</span></span>
-          <span className="text-[#53389E] text-[10px] lg:text-xs">tangible treasures <span><img src="/arrow.png" alt="Arrow" className="inline-block w-2 lg:w-3 h-2 lg:h-3 ml-1" /></span></span>
+        <div className="inline-flex items-center gap-1 lg:gap-2 text-[10px] lg:text-xs mb-3 lg:mb-4 w-auto p-[4px] lg:p-[5px] rounded-full bg-accent/80">
+          <span className="bg-primary/15 text-primary px-1.5 lg:px-2 py-0.5 rounded-full text-[10px] lg:text-xs">🚀 Let's <span className="font-bold">toyify</span></span>
+          <span className="text-primary/85 text-[10px] lg:text-xs">tangible treasures <span><img src="/arrow.png" alt="Arrow" className="inline-block w-2 lg:w-3 h-2 lg:h-3 ml-1" /></span></span>
         </div>
 
         <div className="grid lg:grid-cols-2 gap-6 lg:gap-10 items-start">
           {/* Left Column */}
           <div>
-            <h1 className="text-2xl lg:text-4xl font-bold text-[#42307D] leading-tight mb-2 lg:mb-4">
+            <h1 className="font-heading text-2xl lg:text-4xl font-bold text-foreground leading-tight mb-2 lg:mb-4">
               A platform to make<br />
               your drawings into<br />
               <span className="text-[#9E77ED]">real toys</span>
             </h1>
 
-            <p className="text-[#414651] mb-4 lg:mb-6 text-xs lg:text-sm">
+            <p className="text-muted-foreground mb-4 lg:mb-6 text-xs lg:text-sm">
               Transform any drawing, scribble, doodle and mark-making into real toys and preview it for free
             </p>
 
             {/* Upload Box - Hidden on mobile, shown on desktop */}
             <div 
-              className={`hidden lg:block border-2 border-dashed rounded-2xl py-16 px-16 text-center bg-white transition-colors ${
-                isDragging ? 'border-[#7F56D9] bg-purple-50' : 'border-[#9E77ED]'
+              className={`hidden lg:block toyify-upload-zone py-16 px-16 text-center transition-colors ${
+                isDragging ? 'border-[#7F56D9] bg-[#F4EBFF]' : 'border-[#9E77ED]'
               }`}
               onDragEnter={handleDragEnter}
               onDragOver={handleDragOver}
               onDragLeave={handleDragLeave}
               onDrop={handleDrop}
             >
-              <p className="text-[#414651] mb-4 text-sm">
+              <p className="text-muted-foreground mb-4 text-sm">
                 {isDragging ? 'Drop your drawing here' : 'Drag & drop your drawing here to upload'}
               </p>
               <button 
                 onClick={handleGetStartedClick}
-                className="bg-[#7F56D9] text-white px-8 py-2.5 rounded-lg hover:bg-purple-700 transition font-semibold text-sm shadow-md"
+                className="bg-[#7F56D9] text-white px-8 py-2.5 rounded-full hover:bg-[#6941C6] transition font-semibold text-sm shadow-md shadow-[#7F56D9]/30"
               >
                 Get started for free
               </button>
@@ -129,20 +129,20 @@ export default function Home() {
 
             {/* Upload Box - Mobile Only, positioned before images */}
             <div 
-              className={`lg:hidden w-[90%] border-2 border-dashed rounded-xl py-4 px-10 text-center bg-white/30 mb-3 relative z-10 transition-colors ${
-                isDragging ? 'border-[#7F56D9] bg-purple-50/50' : 'border-[#9E77ED]'
+              className={`lg:hidden w-[90%] toyify-upload-zone py-4 px-10 text-center mb-3 relative z-10 transition-colors ${
+                isDragging ? 'border-[#7F56D9] bg-[#F4EBFF]' : 'border-[#9E77ED]'
               }`}
               onDragEnter={handleDragEnter}
               onDragOver={handleDragOver}
               onDragLeave={handleDragLeave}
               onDrop={handleDrop}
             >
-              <p className="text-[#414651] mb-2 text-xs">
+              <p className="text-muted-foreground mb-2 text-xs">
                 {isDragging ? 'Drop your drawing here' : 'Drag & drop your drawing here to upload'}
               </p>
               <button 
                 onClick={handleGetStartedClick}
-                className="bg-[#7F56D9] text-white px-6 py-2 rounded-lg hover:bg-purple-700 transition font-semibold text-xs shadow-md"
+                className="bg-[#7F56D9] text-white px-6 py-2 rounded-full hover:bg-[#6941C6] transition font-semibold text-xs shadow-md shadow-[#7F56D9]/30"
               >
                 Get started for free
               </button>

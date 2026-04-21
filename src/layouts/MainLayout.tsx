@@ -24,7 +24,7 @@ export default function MainLayout({
   onOpenLogout?: () => void;
 }) {
   return (
-    <div className="min-h-screen w-full bg-gradient-to-tr from-[#42307D] to-[#7F56D9] flex flex-col items-center px-6 sm:px-8 md:px-12 no-scrollbar">
+    <div className="toyify-page-shell min-h-screen w-full flex flex-col items-center px-6 sm:px-8 md:px-12 no-scrollbar">
 
       <Navbar
         user={user}
@@ -41,7 +41,7 @@ export default function MainLayout({
       <div
         className="
           w-full max-w-[1500px]
-          bg-white rounded-3xl shadow-xl
+          toyify-surface
           mt-20 
           mb-10
           min-h-[calc(100vh-140px)] 

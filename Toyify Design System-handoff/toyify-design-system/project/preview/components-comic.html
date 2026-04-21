@@ -1,0 +1,16 @@
+<!doctype html><html><head><meta charset="utf-8"><link rel="stylesheet" href="_shell.css">
+<style>
+  h3 { font: 600 12px var(--font-ui); color: var(--gray-500); letter-spacing: .08em; text-transform: uppercase; margin: 0 0 10px; }
+  .panel { background:#FFFDF5; border:2px solid var(--gray-900); border-radius: 14px; padding: 14px; display:grid; grid-template-columns: 1fr 1fr; gap: 14px; box-shadow: 5px 5px 0 var(--gray-900);}
+  .cell { background: #fff; border:2px solid var(--gray-900); border-radius: 8px; padding: 12px; min-height: 120px; position: relative; background-image: radial-gradient(var(--gray-200) 1px, transparent 1px); background-size: 10px 10px;}
+  .bubble { position: relative; background: #fff; border: 2px solid var(--gray-900); border-radius: 18px; padding: 10px 14px; font: 600 14px var(--font-body); color: var(--gray-900); width: fit-content; max-width: 85%; }
+  .bubble::after { content:''; position:absolute; bottom:-10px; left: 20px; width: 14px; height: 14px; background: #fff; border-right: 2px solid var(--gray-900); border-bottom:2px solid var(--gray-900); transform: rotate(45deg);}
+  .sfx { position:absolute; right: 6px; top: 6px; font-family: var(--font-sketchy); color: var(--pink-500); font-size: 26px; transform: rotate(-8deg); text-shadow: 2px 2px 0 var(--gray-900);}
+  img.m { position:absolute; right: 8px; bottom: 4px; width: 42px; }
+</style></head><body>
+  <h3>Comic story editor — panels, bubbles, SFX</h3>
+  <div class="panel">
+    <div class="cell"><div class="bubble">Hello! I'm Buzzy.</div><img class="m" src="../assets/Hero Video 2 1.png"></div>
+    <div class="cell"><span class="sfx">ZOOM!</span><div class="bubble" style="margin-top:30px">Let's go on an adventure →</div></div>
+  </div>
+</body></html>

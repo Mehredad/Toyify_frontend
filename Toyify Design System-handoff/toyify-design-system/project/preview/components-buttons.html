@@ -1,0 +1,32 @@
+<!doctype html><html><head><meta charset="utf-8"><link rel="stylesheet" href="_shell.css">
+<style>
+  h3 { font: 600 12px var(--font-ui); color: var(--gray-500); letter-spacing: .08em; text-transform: uppercase; margin: 0 0 10px; }
+  .row { display:flex; gap: 12px; flex-wrap:wrap; align-items:center; margin-bottom: 10px; }
+  .lab { width: 100%; font: 500 11px var(--font-mono); color: var(--gray-500); margin-bottom: 4px; }
+  button { font-family: var(--font-body); font-weight: 600; cursor: pointer; border: 0; }
+  .btn-primary { background: var(--purple-600); color: #fff; padding: 12px 24px; border-radius: 9999px; font-size: 14px; min-height: 48px; box-shadow: var(--shadow-sm); transition: all .2s var(--ease-out); }
+  .btn-primary:hover { background: var(--purple-700); }
+  .btn-secondary { background: var(--amber-400); color: var(--gray-900); padding: 12px 24px; border-radius: 9999px; font-size: 14px; min-height: 48px; }
+  .btn-outline { background: #fff; color: var(--purple-700); padding: 12px 24px; border-radius: 9999px; font-size: 14px; min-height: 48px; border: 1.5px solid var(--purple-300); }
+  .btn-ghost { background: transparent; color: var(--purple-700); padding: 12px 20px; border-radius: 9999px; font-size: 14px; min-height: 48px; }
+  .btn-ghost:hover { background: var(--purple-50); }
+  .btn-sparkle { background: linear-gradient(180deg,#EC4899,#BE185D); color: #fff; padding: 12px 22px; border-radius: 9999px; font-size: 14px; min-height: 48px; box-shadow: 0 0 24px rgba(236,72,153,.55), inset 0 -2px 0 rgba(0,0,0,.12); display:inline-flex; align-items:center; gap: 6px;}
+  .ico { width: 16px; height: 16px; display:inline-block; }
+</style></head><body>
+  <h3>Buttons — pill, 48px min touch target</h3>
+  <div class="lab">primary · secondary · outline · ghost · sparkle (hero CTA)</div>
+  <div class="row">
+    <button class="btn-primary">Get started for free</button>
+    <button class="btn-secondary">Customise</button>
+    <button class="btn-outline">Back</button>
+    <button class="btn-ghost">Skip</button>
+    <button class="btn-sparkle">✦ Toyify it</button>
+  </div>
+  <div class="lab" style="margin-top: 8px">Primary states</div>
+  <div class="row">
+    <button class="btn-primary">Default</button>
+    <button class="btn-primary" style="background:var(--purple-700)">Hover</button>
+    <button class="btn-primary" style="background:var(--purple-600);box-shadow:var(--focus-ring)">Focus</button>
+    <button class="btn-primary" style="background:var(--gray-400);cursor:not-allowed;opacity:.6">Disabled</button>
+  </div>
+</body></html>

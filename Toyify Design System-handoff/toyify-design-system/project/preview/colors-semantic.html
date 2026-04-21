@@ -1,0 +1,33 @@
+<!doctype html><html><head><meta charset="utf-8"><link rel="stylesheet" href="_shell.css">
+<style>
+  h3 { font: 600 12px var(--font-ui); color: var(--gray-500); letter-spacing: .08em; text-transform: uppercase; margin: 0 0 10px; }
+  .grid { display:grid; grid-template-columns: repeat(4,1fr); gap: 12px; }
+  .chip { border-radius: 14px; padding: 14px 16px; display:flex; flex-direction:column; gap: 8px; border: 1px solid; }
+  .dot { width: 20px; height: 20px; border-radius: 999px; }
+  .title { font: 700 14px var(--font-body); }
+  .hex { font: 500 11px var(--font-mono); opacity: .7; }
+</style></head><body>
+  <h3>Semantic — status colours</h3>
+  <div class="grid">
+    <div class="chip" style="background:var(--success-bg);border-color:#A6F4C5;color:#027A48">
+      <div class="dot" style="background:var(--success)"></div>
+      <div class="title">Success</div>
+      <div class="hex">#12B76A · ECFDF3</div>
+    </div>
+    <div class="chip" style="background:var(--warning-bg);border-color:#FEC84B;color:#B54708">
+      <div class="dot" style="background:var(--warning)"></div>
+      <div class="title">Warning</div>
+      <div class="hex">#F79009 · FFFAEB</div>
+    </div>
+    <div class="chip" style="background:var(--danger-bg);border-color:#FECDCA;color:#B42318">
+      <div class="dot" style="background:var(--danger)"></div>
+      <div class="title">Danger</div>
+      <div class="hex">#F04438 · FEF3F2</div>
+    </div>
+    <div class="chip" style="background:var(--info-bg);border-color:#B2DDFF;color:#175CD3">
+      <div class="dot" style="background:var(--info)"></div>
+      <div class="title">Info</div>
+      <div class="hex">#2E90FA · EFF8FF</div>
+    </div>
+  </div>
+</body></html>

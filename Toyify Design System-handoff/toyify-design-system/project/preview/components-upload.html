@@ -1,0 +1,25 @@
+<!doctype html><html><head><meta charset="utf-8"><link rel="stylesheet" href="_shell.css">
+<style>
+  h3 { font: 600 12px var(--font-ui); color: var(--gray-500); letter-spacing: .08em; text-transform: uppercase; margin: 0 0 10px; }
+  .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .drop { border: 2px dashed var(--purple-500); border-radius: 20px; padding: 24px; text-align: center; background: #fff; font-family: var(--font-body);}
+  .drop.active { border-color: var(--purple-600); background: var(--purple-50); border-style: dashed; }
+  .drop p { font-size: 13px; color: var(--gray-700); margin: 0 0 10px; }
+  .drop button { background: var(--purple-600); color: #fff; padding: 10px 20px; border-radius: 10px; border: 0; font-weight: 600; font-size: 13px; cursor: pointer;}
+  .icon { width: 36px; height: 36px; border-radius: 999px; background: var(--purple-100); color: var(--purple-700); display: inline-flex; align-items:center; justify-content:center; margin-bottom: 8px;}
+  .icon svg { width: 18px; height: 18px;}
+</style></head><body>
+  <h3>Upload zone — idle vs drag-active</h3>
+  <div class="grid">
+    <div class="drop">
+      <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg></div>
+      <p>Drag & drop your drawing here to upload</p>
+      <button>Get started for free</button>
+    </div>
+    <div class="drop active">
+      <div class="icon" style="background:var(--purple-200)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg></div>
+      <p style="color:var(--purple-800);font-weight:600">Drop your drawing here</p>
+      <button>Get started for free</button>
+    </div>
+  </div>
+</body></html>

@@ -1,0 +1,218 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Toyify · Mobile UI Kit</title>
+<link rel="stylesheet" href="colors_and_type.css">
+<style>
+  html, body { margin: 0; padding: 0; background: var(--purple-gradient); min-height: 100vh; font-family: var(--font-body); }
+  .stage { display: flex; gap: 40px; padding: 48px; flex-wrap: wrap; justify-content: center; }
+  .caption { font: 600 13px var(--font-ui); color: #fff; text-align: center; margin-top: 16px; opacity: .9; letter-spacing: .02em; }
+  .caption b { display: block; font: 700 15px var(--font-display); margin-bottom: 2px; }
+</style>
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script type="text/babel" src="ios-frame.jsx"></script>
+</head>
+<body>
+<div id="root"></div>
+
+<script type="text/babel">
+const P = {
+  purple50:'#F9F5FF', purple100:'#F4EBFF', purple500:'#9E77ED', purple600:'#7F56D9',
+  purple700:'#6941C6', purple800:'#53389E', purple900:'#42307D',
+  pink500:'#EC4899', pink700:'#BE185D',
+  amber300:'#FCD34D', amber500:'#F59E0B',
+  g200:'#E9EAEB', g300:'#D5D7DA', g400:'#A4A7AE', g500:'#717680', g700:'#414651', g900:'#181D27',
+  success:'#12B76A'
+};
+
+// ---------- Upload Screen ----------
+function UploadScreen() {
+  return (
+    <div style={{padding:'12px 20px', display:'flex', flexDirection:'column', gap:18}}>
+      <div style={{display:'flex', justifyContent:'space-between', alignItems:'center', padding:'4px 4px'}}>
+        <img src="assets/Logo-purple.svg" style={{height:26}}/>
+        <div style={{display:'flex', alignItems:'center', gap:6, background:'linear-gradient(180deg,#FCD34D,#F59E0B)', border:'1.5px solid #B45309', borderRadius:9999, padding:'4px 12px', color:'#7B3F00', font:'700 12px Lexend'}}>
+          <span style={{width:14,height:14,borderRadius:999,background:'radial-gradient(circle at 35% 30%,#FDE68A,#D97706)',border:'1px solid #92400E'}}></span>12 credits
+        </div>
+      </div>
+      <div>
+        <div style={{font:'700 28px Fredoka', color:P.purple900, lineHeight:1.15, marginBottom:4}}>Upload your drawing</div>
+        <div style={{font:'500 14px Lexend', color:P.g500}}>Snap a picture or pick from your camera roll — we'll turn it into a toy.</div>
+      </div>
+      <div style={{border:`2px dashed ${P.purple500}`, borderRadius:24, background:P.purple50, padding:28, textAlign:'center', display:'flex', flexDirection:'column', alignItems:'center', gap:10}}>
+        <div style={{width:64, height:64, borderRadius:9999, background:'#fff', border:`2px dashed ${P.purple300}`, display:'flex', alignItems:'center', justifyContent:'center'}}>
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke={P.purple700} strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+        </div>
+        <div style={{font:'600 15px Lexend', color:P.purple800}}>Drag a drawing here</div>
+        <div style={{font:'500 12px Lexend', color:P.g500}}>JPG, PNG or HEIC · up to 20 MB</div>
+      </div>
+      <div style={{display:'flex', gap:10}}>
+        <button style={{flex:1, background:P.purple600, color:'#fff', border:0, borderRadius:9999, minHeight:56, font:'700 15px Lexend', display:'flex', alignItems:'center', justifyContent:'center', gap:8, boxShadow:'0 8px 20px rgba(127,86,217,.35)'}}>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="12" cy="12" r="3.5"/></svg>
+          Take photo
+        </button>
+        <button style={{flex:1, background:'#fff', color:P.purple700, border:`1.5px solid ${P.purple300}`, borderRadius:9999, minHeight:56, font:'700 15px Lexend'}}>
+          Gallery
+        </button>
+      </div>
+      <div style={{background:'#fff', borderRadius:20, padding:14, display:'flex', gap:12, alignItems:'center', boxShadow:'0 1px 2px rgba(16,24,40,.06)'}}>
+        <div style={{width:48,height:48,borderRadius:12, background:P.purple100, display:'flex',alignItems:'center',justifyContent:'center'}}>
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke={P.purple700} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 16.9l-6.2 4.4 2.4-7.4L2 9.4h7.6z"/></svg>
+        </div>
+        <div style={{flex:1}}>
+          <div style={{font:'700 14px Lexend', color:P.g900}}>Tips for best results</div>
+          <div style={{font:'500 12px Lexend', color:P.g500, lineHeight:1.5}}>Good lighting, plain background, full drawing in frame.</div>
+        </div>
+        <svg width="8" height="14" viewBox="0 0 8 14" fill="none"><path d="M1 1l6 6-6 6" stroke={P.g400} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
+      </div>
+    </div>
+  );
+}
+
+// ---------- Preview Screen (AI result + choose plan) ----------
+function PreviewScreen() {
+  return (
+    <div style={{padding:'12px 20px', display:'flex', flexDirection:'column', gap:16}}>
+      <div style={{display:'flex', alignItems:'center', justifyContent:'space-between'}}>
+        <div style={{display:'flex', alignItems:'center', gap:6, color:P.purple700, font:'600 13px Lexend'}}>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+          Upload
+        </div>
+        <div style={{font:'600 12px Lexend', color:P.g500, letterSpacing:'.05em'}}>STEP 2 OF 5</div>
+        <div style={{width:36}}/>
+      </div>
+      <div style={{height:4, borderRadius:999, background:P.g200, position:'relative'}}>
+        <div style={{position:'absolute', left:0, top:0, bottom:0, width:'42%', borderRadius:999, background:P.purple600}}/>
+      </div>
+      <div style={{font:'700 26px Fredoka', color:P.purple900, lineHeight:1.15}}>Your toy preview ✨</div>
+
+      <div style={{display:'grid', gridTemplateColumns:'1fr 1fr', gap:12}}>
+        <div style={{borderRadius:20, background:P.purple50, padding:8, border:`2px solid ${P.purple50}`}}>
+          <div style={{borderRadius:14, aspectRatio:'1/1.1', background:'#fff', border:`2px dashed ${P.purple300}`, display:'flex',alignItems:'center',justifyContent:'center',overflow:'hidden'}}>
+            <img src="assets/test-penguin.jpeg" style={{width:'75%'}}/>
+          </div>
+          <div style={{font:'600 12px Lexend', color:P.g700, padding:'8px 4px 4px'}}>Original</div>
+        </div>
+        <div style={{borderRadius:20, background:P.purple50, padding:8, border:`2px solid ${P.purple600}`, boxShadow:'0 8px 20px rgba(127,86,217,.25)'}}>
+          <div style={{borderRadius:14, aspectRatio:'1/1.1', background:'linear-gradient(135deg,#FDE68A,#F9A8D4)', display:'flex',alignItems:'center',justifyContent:'center', position:'relative',overflow:'hidden'}}>
+            <span style={{position:'absolute', top:8, right:8, background:P.purple600, color:'#fff', borderRadius:9999, padding:'2px 8px', font:'700 9px Lexend', letterSpacing:'.04em'}}>AI PREVIEW</span>
+            <img src="assets/Hero Video 2 1.png" style={{width:'80%'}}/>
+          </div>
+          <div style={{font:'700 12px Lexend', color:P.purple800, padding:'8px 4px 4px'}}>Toyified ✓</div>
+        </div>
+      </div>
+
+      <div style={{display:'flex', flexDirection:'column', gap:10}}>
+        <div style={{background:'#fff', borderRadius:18, padding:14, border:`2px solid ${P.purple600}`, boxShadow:'0 6px 14px rgba(16,24,40,.08)', display:'flex', gap:12, alignItems:'center'}}>
+          <div style={{width:22,height:22, borderRadius:6, background:P.purple600, color:'#fff', display:'flex',alignItems:'center',justifyContent:'center', font:'800 13px Lexend'}}>✓</div>
+          <div style={{flex:1}}>
+            <div style={{font:'700 15px Lexend', color:P.g900}}>Fully Crafted Toy</div>
+            <div style={{font:'500 12px Lexend', color:P.g500}}>Coloured · 5-7 days · Free shipping</div>
+          </div>
+          <div style={{font:'700 22px Fredoka', color:P.g900}}>£39</div>
+        </div>
+        <div style={{background:'#fff', borderRadius:18, padding:14, border:`1.5px solid ${P.g300}`, display:'flex', gap:12, alignItems:'center'}}>
+          <div style={{width:22,height:22, borderRadius:6, background:'#fff', border:`2px solid ${P.g300}`}}/>
+          <div style={{flex:1}}>
+            <div style={{font:'700 15px Lexend', color:P.g900}}>DIY Toy</div>
+            <div style={{font:'500 12px Lexend', color:P.g500}}>Uncoloured + colouring set</div>
+          </div>
+          <div style={{font:'700 22px Fredoka', color:P.g900}}>£29</div>
+        </div>
+      </div>
+
+      <button style={{background:'linear-gradient(180deg,#EC4899,#BE185D)', color:'#fff', border:0, borderRadius:9999, minHeight:56, font:'700 16px Lexend', display:'flex', alignItems:'center', justifyContent:'center', gap:8, boxShadow:'0 0 32px rgba(236,72,153,.5)'}}>
+        ✦ Toyify it — add to story
+      </button>
+    </div>
+  );
+}
+
+// ---------- Story / Comic Screen ----------
+function StoryScreen() {
+  const [title, setTitle] = React.useState("Buzzy's first adventure");
+  const [body, setBody] = React.useState(
+    "Buzzy zipped up his scarf and waved at the moon.\n\n\u201CToday,\u201D he whispered, \u201Cis the day I find a new star.\u201D\n\nHe packed three biscuits, a tiny map, and his favourite yellow pencil \u2014 just in case the sky needed drawing on."
+  );
+  return (
+    <div style={{padding:'10px 16px 20px', display:'flex', flexDirection:'column', gap:12, height:'100%'}}>
+      <div style={{display:'flex', alignItems:'center', justifyContent:'space-between'}}>
+        <div style={{display:'flex', alignItems:'center', gap:6, color:P.purple700, font:'600 13px Lexend'}}>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+          Customise
+        </div>
+        <div style={{font:'600 12px Lexend', color:P.g500, letterSpacing:'.05em'}}>STEP 4 OF 5</div>
+        <div style={{display:'flex',alignItems:'center',gap:4,background:P.amber300, color:'#7B3F00', padding:'4px 10px', borderRadius:9999, font:'700 11px Lexend'}}>Draft</div>
+      </div>
+
+      <div>
+        <div style={{font:'600 11px Lexend', color:P.g500, letterSpacing:'.12em', textTransform:'uppercase', marginBottom:6}}>Story</div>
+        <input value={title} onChange={e=>setTitle(e.target.value)}
+          style={{width:'100%', border:0, outline:'none', padding:'2px 0',
+            font:`700 26px 'Space Grotesk', system-ui`, color:P.purple900,
+            letterSpacing:'-.02em', lineHeight:1.15, background:'transparent',
+            borderBottom:`2px dashed ${P.purple200}`}}/>
+      </div>
+
+      <div style={{flex:1, background:'#FFFDF5', border:`1.5px solid ${P.g200}`,
+        borderRadius:20, padding:'16px 18px 12px',
+        boxShadow:'0 1px 2px rgba(16,24,40,.04), 0 8px 20px rgba(16,24,40,.04)',
+        display:'flex', flexDirection:'column', gap:10}}>
+        <div style={{display:'flex', alignItems:'center', gap:8}}>
+          <span style={{width:8, height:8, borderRadius:999, background:P.success}}/>
+          <span style={{font:'600 12px Lexend', color:P.g500}}>Chapter 1 · Auto-saved just now</span>
+          <span style={{marginLeft:'auto', font:'600 11px "JetBrains Mono"', color:P.g400}}>{body.length} chars</span>
+        </div>
+        <textarea value={body} onChange={e=>setBody(e.target.value)}
+          style={{flex:1, border:0, outline:'none', resize:'none', background:'transparent',
+            font:'500 15px Lexend', color:P.g900, lineHeight:'28px', padding:0, minHeight:240}}/>
+        <div style={{display:'flex', gap:6, padding:'6px 8px',
+          background:'#fff', border:`1px solid ${P.g200}`, borderRadius:12,
+          boxShadow:'0 1px 2px rgba(16,24,40,.04)'}}>
+          {[
+            {k:'B', s:{font:'800 13px Lexend'}},
+            {k:'I', s:{font:'600 13px Lexend', fontStyle:'italic'}},
+            {k:'\u201C \u201D', s:{font:'700 13px "Space Grotesk"'}},
+            {k:'\u2022', s:{font:'800 15px Lexend'}},
+          ].map(t=>(
+            <button key={t.k} style={{flex:1, minHeight:32, border:0, borderRadius:8,
+              background:'transparent', color:P.g700, cursor:'pointer', ...t.s}}>{t.k}</button>
+          ))}
+          <div style={{width:1, background:P.g200, margin:'4px 2px'}}/>
+          <button style={{minHeight:32, padding:'0 12px', border:0, borderRadius:8,
+            background:P.purple100, color:P.purple800,
+            font:'700 12px Lexend', cursor:'pointer'}}>✨ AI suggest</button>
+        </div>
+      </div>
+
+      <button style={{background:P.purple600, color:'#fff', border:0, borderRadius:9999, minHeight:52, font:'700 15px Lexend', boxShadow:'0 6px 16px rgba(127,86,217,.3)'}}>Save story & continue</button>
+    </div>
+  );
+}
+
+function App() {
+  return (
+    <div className="stage">
+      <div>
+        <IOSDevice width={360} height={740}><UploadScreen/></IOSDevice>
+        <div className="caption"><b>1 · Upload</b>Landing / onboarding on device</div>
+      </div>
+      <div>
+        <IOSDevice width={360} height={740}><PreviewScreen/></IOSDevice>
+        <div className="caption"><b>2 · Preview</b>AI-generated toy + pick plan</div>
+      </div>
+      <div>
+        <IOSDevice width={360} height={740}><StoryScreen/></IOSDevice>
+        <div className="caption"><b>3 · Story</b>Editable story text editor</div>
+      </div>
+    </div>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById('root')).render(<App/>);
+</script>
+</body>
+</html>

@@ -1,0 +1,284 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Toyify · Landing UI Kit</title>
+<link rel="stylesheet" href="colors_and_type.css">
+<style>
+  html, body { margin:0; padding:0; font-family: var(--font-body); color: var(--text-body); background:#fff; -webkit-font-smoothing:antialiased; }
+  * { box-sizing: border-box; }
+
+  /* ---- NAV ---- */
+  .nav { position: sticky; top:0; z-index: 50; backdrop-filter: blur(16px); background: rgba(255,255,255,.78); border-bottom: 1px solid rgba(0,0,0,.04);}
+  .nav-inner { max-width: 1240px; margin: 0 auto; padding: 18px 32px; display:flex; align-items:center; justify-content:space-between;}
+  .nav img { height: 28px; }
+  .nav ul { list-style:none; display:flex; gap: 32px; margin:0; padding:0; }
+  .nav a { color: var(--gray-700); font: 600 14px var(--font-body); text-decoration:none;}
+  .nav .cta { background: var(--purple-600); color:#fff; padding: 10px 18px; border-radius: 9999px; font-weight: 700; font-size: 14px;}
+
+  /* ---- HERO ---- */
+  .hero { position: relative; background: var(--purple-gradient); color:#fff; overflow:hidden; padding: 72px 32px 96px; }
+  .hero-inner { max-width: 1240px; margin: 0 auto; display: grid; grid-template-columns: 1.05fr .95fr; gap: 40px; align-items:center; position:relative; z-index: 2;}
+  .kicker { display:inline-flex; align-items:center; gap: 8px; background: rgba(255,255,255,.14); border: 1px solid rgba(255,255,255,.22); backdrop-filter: blur(8px); padding: 6px 6px 6px 14px; border-radius: 9999px; font: 600 13px var(--font-body); color: #fff; margin-bottom: 22px;}
+  .kicker .pill { background: var(--amber-300); color:#7B3F00; border-radius: 9999px; padding: 3px 10px; font: 800 12px var(--font-body); }
+  .hero h1 { font-family: var(--font-display); font-size: 84px; line-height: .98; font-weight: 700; letter-spacing: -.025em; margin: 0 0 20px; text-wrap: balance;}
+  .hero h1 em { font-family: var(--font-handwritten); font-style: normal; color: var(--amber-300); font-weight: 700; }
+  .hero h1 .swoosh { position: relative; display:inline-block;}
+  .hero h1 .swoosh::after { content:''; position:absolute; left: -4%; right:-4%; bottom: -6px; height: 14px; background: radial-gradient(ellipse at center, var(--pink-500) 0%, transparent 70%); opacity:.85;}
+  .hero p.lead { font-size: 20px; line-height: 1.55; color: rgba(255,255,255,.88); max-width: 520px; margin: 0 0 32px;}
+  .hero-ctas { display:flex; gap: 12px; flex-wrap:wrap; margin-bottom: 28px;}
+  .btn-sparkle { background: linear-gradient(180deg,#EC4899,#BE185D); color:#fff; padding: 18px 28px; border-radius: 9999px; font: 700 16px var(--font-body); border:0; box-shadow: 0 0 40px rgba(236,72,153,.55), inset 0 -2px 0 rgba(0,0,0,.15); cursor: pointer; display:inline-flex; align-items:center; gap: 10px;}
+  .btn-ghost { background: rgba(255,255,255,.12); color:#fff; padding: 18px 24px; border-radius: 9999px; font: 700 16px var(--font-body); border: 1px solid rgba(255,255,255,.25); cursor: pointer;}
+  .trust { display:flex; align-items:center; gap: 18px; color: rgba(255,255,255,.85); font: 500 13px var(--font-body);}
+  .avatars { display:flex; }
+  .avatars div { width: 32px; height: 32px; border-radius:999px; border: 2px solid var(--purple-800); background:#FBCFE8; margin-left:-8px;}
+  .avatars div:nth-child(2){background:#FDE68A;} .avatars div:nth-child(3){background:#A7F3D0;} .avatars div:nth-child(4){background:#BFDBFE;}
+
+  /* Hero visual collage */
+  .hero-visual { position: relative; height: 560px; }
+  .card-float { position:absolute; border-radius: 28px; overflow:hidden; box-shadow: 0 30px 60px rgba(0,0,0,.3);}
+  .card-float.drawing { top: 10px; left: 10px; width: 260px; aspect-ratio: 1/1.2; background: #fff; padding: 18px; transform: rotate(-6deg);}
+  .card-float.drawing img { width: 100%; }
+  .card-float.drawing .note { position:absolute; bottom: 10px; left: 18px; font: 400 28px var(--font-handwritten); color: var(--purple-800);}
+  .card-float.toy { top: 60px; right: 0; width: 300px; aspect-ratio: 1/1.15; background: linear-gradient(135deg,#FDE68A,#F9A8D4); transform: rotate(4deg); display:flex; align-items:center; justify-content:center; padding: 20px;}
+  .card-float.toy img { width: 90%; filter: drop-shadow(0 20px 30px rgba(0,0,0,.25)); }
+  .card-float.arrow { top: 210px; left: 230px; width: 120px; transform: rotate(8deg); z-index: 3; filter: hue-rotate(320deg) brightness(1.3);}
+  .card-float.arrow img { width: 100%; }
+  .badge-float { position:absolute; background:#fff; color: var(--gray-900); border-radius: 16px; padding: 12px 16px; font: 700 13px var(--font-body); display:flex; align-items:center; gap:10px; box-shadow: 0 10px 24px rgba(0,0,0,.15); }
+  .badge-float .ic { width: 28px; height: 28px; border-radius: 999px; display:inline-flex; align-items:center; justify-content:center;}
+  .b1 { top: 340px; left: 30px; transform: rotate(-5deg); }
+  .b1 .ic { background: var(--purple-100); color: var(--purple-700);}
+  .b2 { bottom: 24px; right: 20px; transform: rotate(3deg);}
+  .b2 .ic { background: var(--success-bg); color: var(--success);}
+
+  /* Floating SFX in hero bg */
+  .sfx { position:absolute; font-family: var(--font-sketchy); color: var(--amber-300); opacity:.25; font-size: 120px; pointer-events:none; z-index: 1;}
+  .sfx1 { top: 40px; right: -20px; transform: rotate(-12deg);}
+  .sfx2 { bottom: -40px; left: -10px; transform: rotate(8deg); color: var(--pink-300);}
+
+  /* ---- HOW IT WORKS ---- */
+  .section { max-width: 1240px; margin: 0 auto; padding: 96px 32px; }
+  .sec-head { text-align: center; max-width: 720px; margin: 0 auto 56px;}
+  .sec-kicker { font: 700 12px var(--font-body); color: var(--purple-600); letter-spacing: .15em; text-transform: uppercase; margin-bottom: 14px;}
+  .sec-title { font-family: var(--font-display); font-size: 56px; line-height: 1.05; font-weight:700; color: var(--gray-900); margin: 0 0 16px; letter-spacing: -.02em;}
+  .sec-sub { font-size: 18px; color: var(--gray-500); line-height: 1.6;}
+
+  .steps { display:grid; grid-template-columns: repeat(4, 1fr); gap: 20px;}
+  .step { position: relative; background:#fff; border: 1.5px solid var(--gray-200); border-radius: 24px; padding: 28px 24px; transition: transform .3s; }
+  .step:hover { transform: translateY(-4px); border-color: var(--purple-300); box-shadow: var(--shadow-lg);}
+  .step .num { font-family: var(--font-display); font-size: 48px; line-height: 1; color: var(--purple-300); font-weight:700; margin-bottom: 16px;}
+  .step h3 { font-family: var(--font-display); font-size: 22px; font-weight: 700; color: var(--gray-900); margin: 0 0 8px; }
+  .step p { color: var(--gray-500); font-size: 14px; line-height: 1.6; margin:0;}
+  .step .dot { position:absolute; top: -8px; right: -8px; width: 32px; height: 32px; border-radius: 999px; background: var(--purple-600); color:#fff; display:flex; align-items:center; justify-content:center;}
+  .step:nth-child(2) .dot { background: var(--pink-500);}
+  .step:nth-child(3) .dot { background: var(--amber-400); color: var(--gray-900);}
+  .step:nth-child(4) .dot { background: var(--teal-500);}
+
+  /* ---- GALLERY ---- */
+  .gallery-bg { background: var(--gray-50); }
+  .gallery { display:grid; grid-template-columns: repeat(3, 1fr); gap: 20px;}
+  .gcard { background:#fff; border-radius: 24px; padding: 20px; border: 1.5px solid var(--gray-200);}
+  .gcard .pair { display:grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 16px;}
+  .gcard .thumb { aspect-ratio: 1; border-radius: 14px; overflow:hidden; display:flex; align-items:center; justify-content:center; position: relative;}
+  .gcard .t1 { background: var(--gray-100); border: 2px dashed var(--gray-300);}
+  .gcard .t2 { background: linear-gradient(135deg,#FDE68A,#F9A8D4);}
+  .gcard .t1 img, .gcard .t2 img { width: 78%; }
+  .gcard .tag { position:absolute; top:8px; left:8px; background: rgba(0,0,0,.6); color:#fff; padding: 2px 8px; border-radius: 9999px; font: 700 10px var(--font-body); letter-spacing: .04em;}
+  .gcard h4 { font-family: var(--font-display); font-size: 20px; margin: 0 0 4px; color: var(--gray-900);}
+  .gcard .by { font: 500 12px var(--font-body); color: var(--gray-500);}
+  .gcard .meta { display:flex; justify-content: space-between; align-items:center; margin-top: 14px; padding-top: 14px; border-top: 1px dashed var(--gray-200);}
+  .gcard .meta .likes { display:inline-flex; align-items:center; gap:6px; color: var(--gray-500); font: 600 13px var(--font-body);}
+  .gcard .meta .btn { background: var(--purple-100); color: var(--purple-800); padding: 6px 12px; border-radius: 9999px; font: 700 12px var(--font-body);}
+
+  /* ---- PARALLAX BAND ---- */
+  .parallax { background: var(--purple-gradient); color:#fff; padding: 120px 32px; position:relative; overflow:hidden;}
+  .parallax .inner { max-width: 1240px; margin: 0 auto; text-align: center; position: relative; z-index: 2;}
+  .parallax h2 { font-family: var(--font-display); font-size: 72px; line-height: 1.02; font-weight:700; margin: 0 0 16px; letter-spacing:-.02em;}
+  .parallax h2 em { font-family: var(--font-handwritten); color: var(--amber-300); font-style:normal;}
+  .parallax p { font-size: 20px; color: rgba(255,255,255,.85); max-width: 620px; margin: 0 auto 36px; line-height: 1.55;}
+  .parallax .layer { position: absolute; pointer-events: none; }
+  .p-blob1 { top:-120px; left:-80px; width: 320px; height: 320px; border-radius:999px; background: radial-gradient(circle, var(--pink-500) 0%, transparent 70%); opacity:.4;}
+  .p-blob2 { bottom:-160px; right:-120px; width: 420px; height: 420px; border-radius:999px; background: radial-gradient(circle, var(--amber-400) 0%, transparent 70%); opacity:.25;}
+  .p-star { top: 80px; right: 10%; font: 400 60px var(--font-sketchy); color: var(--amber-300); opacity:.55; transform: rotate(-8deg);}
+  .p-star2 { bottom: 60px; left: 8%; font: 400 40px var(--font-sketchy); color: var(--pink-300); opacity:.55; transform: rotate(12deg);}
+
+  /* ---- FOOTER ---- */
+  .footer { background: var(--gray-900); color: rgba(255,255,255,.65); padding: 64px 32px 32px;}
+  .foot-inner { max-width: 1240px; margin: 0 auto; display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 40px;}
+  .foot-inner img { height: 24px; filter: brightness(0) invert(1); margin-bottom: 16px;}
+  .foot-inner h5 { color:#fff; font: 700 14px var(--font-body); margin: 0 0 12px;}
+  .foot-inner ul { list-style:none; padding:0; margin:0; display:grid; gap: 8px; font-size: 14px;}
+  .foot-inner a { color: rgba(255,255,255,.65); text-decoration: none;}
+  .copyright { max-width: 1240px; margin: 48px auto 0; padding-top: 24px; border-top: 1px solid rgba(255,255,255,.1); display:flex; justify-content:space-between; font-size: 13px;}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <img src="assets/Logo-purple.svg" alt="Toyify">
+    <ul>
+      <li><a href="#">How it works</a></li>
+      <li><a href="#">Gallery</a></li>
+      <li><a href="#">For schools</a></li>
+      <li><a href="#">Pricing</a></li>
+    </ul>
+    <a href="#" class="cta">Start a drawing</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="sfx sfx1">POW!</div>
+  <div class="sfx sfx2">ZOOM</div>
+  <div class="hero-inner">
+    <div>
+      <div class="kicker"><span class="pill">🚀 Let's toyify</span> tangible treasures from tiny artists</div>
+      <h1>Draw it.<br><span class="swoosh">Toyify</span> it. <em>Play with it.</em></h1>
+      <p class="lead">Upload your child's drawing and we'll 3D-print it into a real, huggable toy. AI helps with the preview, a human maker finishes the job.</p>
+      <div class="hero-ctas">
+        <button class="btn-sparkle">✦ Toyify my drawing</button>
+        <button class="btn-ghost">Watch 30-sec demo</button>
+      </div>
+      <div class="trust">
+        <div class="avatars"><div></div><div></div><div></div><div></div></div>
+        <div><b style="color:#fff">2,400+</b> toys made this year · ★★★★★ 4.9 on Trustpilot</div>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="card-float drawing">
+        <img src="assets/test-penguin.jpeg" alt="child drawing">
+        <div class="note">by Lia, age 6 ♡</div>
+      </div>
+      <div class="card-float arrow"><img src="assets/arrow.png" alt="→"></div>
+      <div class="card-float toy">
+        <img src="assets/Hero Video 2 1.png" alt="toyified">
+      </div>
+      <div class="badge-float b1">
+        <span class="ic">⚡</span>
+        <div>Ready in<br><span style="color:var(--gray-500); font-weight: 500;">5-7 working days</span></div>
+      </div>
+      <div class="badge-float b2">
+        <span class="ic">✓</span>
+        <div>Eco PLA<br><span style="color:var(--gray-500); font-weight:500;">Safe for kids</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="section">
+  <div class="sec-head">
+    <div class="sec-kicker">How it works</div>
+    <h1 class="sec-title">From scribble to <em style="font-family:var(--font-handwritten);font-style:normal;color:var(--pink-500)">shelf-worthy</em> in four steps</h1>
+    <p class="sec-sub">No complicated software, no waiting. Grown-ups drive the checkout, kids drive the creativity.</p>
+  </div>
+  <div class="steps">
+    <div class="step">
+      <div class="dot"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg></div>
+      <div class="num">01</div>
+      <h3>Upload the drawing</h3>
+      <p>Snap a picture on phone or tablet. Crayons, markers, finger paint — we handle them all.</p>
+    </div>
+    <div class="step">
+      <div class="dot">✦</div>
+      <div class="num">02</div>
+      <h3>Preview the toy</h3>
+      <p>Our AI generates a 3D concept in seconds. Approve it, tweak it, or try again — credits are free.</p>
+    </div>
+    <div class="step">
+      <div class="dot">🎨</div>
+      <div class="num">03</div>
+      <h3>Pick a plan</h3>
+      <p>Fully crafted (£39) arrives fully coloured. DIY (£29) comes blank with a child-safe paint kit.</p>
+    </div>
+    <div class="step">
+      <div class="dot">📦</div>
+      <div class="num">04</div>
+      <h3>Play & tell stories</h3>
+      <p>Toy arrives in 5-7 days with a short comic-book story starring your character.</p>
+    </div>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<section class="gallery-bg">
+  <div class="section">
+    <div class="sec-head">
+      <div class="sec-kicker">Real toys, real stories</div>
+      <h1 class="sec-title">The Toyify gallery</h1>
+      <p class="sec-sub">Drawings from kids aged 3-12. Click any to read the story.</p>
+    </div>
+    <div class="gallery">
+      <div class="gcard">
+        <div class="pair">
+          <div class="thumb t1"><span class="tag">ORIGINAL</span><img src="assets/test-penguin.jpeg"/></div>
+          <div class="thumb t2"><span class="tag" style="background:var(--purple-600)">TOY</span><img src="assets/Hero Video 2 1.png"/></div>
+        </div>
+        <h4>Buzzy the space penguin</h4>
+        <div class="by">by Lia, age 6 · Manchester</div>
+        <div class="meta"><span class="likes">♡ 284</span><span class="btn">Read story →</span></div>
+      </div>
+      <div class="gcard">
+        <div class="pair">
+          <div class="thumb t1"><span class="tag">ORIGINAL</span><img src="assets/test-penguin.jpeg"/></div>
+          <div class="thumb t2" style="background:linear-gradient(135deg,#A7F3D0,#BFDBFE)"><span class="tag" style="background:var(--teal-500)">TOY</span><img src="assets/Hero Video 2 1.png"/></div>
+        </div>
+        <h4>Gribbit the brave</h4>
+        <div class="by">by Sam, age 4 · Brighton</div>
+        <div class="meta"><span class="likes">♡ 192</span><span class="btn">Read story →</span></div>
+      </div>
+      <div class="gcard">
+        <div class="pair">
+          <div class="thumb t1"><span class="tag">ORIGINAL</span><img src="assets/test-penguin.jpeg"/></div>
+          <div class="thumb t2" style="background:linear-gradient(135deg,#FBCFE8,#C4B5FD)"><span class="tag" style="background:var(--pink-500)">TOY</span><img src="assets/Hero Video 2 1.png"/></div>
+        </div>
+        <h4>Princess Jellybean</h4>
+        <div class="by">by Ada, age 5 · Bristol</div>
+        <div class="meta"><span class="likes">♡ 317</span><span class="btn">Read story →</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PARALLAX BAND -->
+<section class="parallax">
+  <div class="layer p-blob1"></div>
+  <div class="layer p-blob2"></div>
+  <div class="layer p-star">WOW!</div>
+  <div class="layer p-star2">YAY</div>
+  <div class="inner">
+    <h2>The fridge is full.<br>Time for the <em>shelf.</em></h2>
+    <p>Turn one drawing into a keepsake your child will actually play with. Free first preview, no subscription, no hidden fees.</p>
+    <button class="btn-sparkle">✦ Start your first toy — it's free to try</button>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="foot-inner">
+    <div>
+      <img src="assets/Logo.svg" alt="Toyify">
+      <p style="max-width: 320px; line-height: 1.6; font-size: 14px;">Real toys, made from real drawings. Based in the UK. Shipping worldwide soon.</p>
+    </div>
+    <div>
+      <h5>Product</h5>
+      <ul><li><a href="#">How it works</a></li><li><a href="#">Pricing</a></li><li><a href="#">Gallery</a></li><li><a href="#">For schools</a></li></ul>
+    </div>
+    <div>
+      <h5>Company</h5>
+      <ul><li><a href="#">About us</a></li><li><a href="#">Our makers</a></li><li><a href="#">Press kit</a></li><li><a href="#">Contact</a></li></ul>
+    </div>
+    <div>
+      <h5>Safety & Care</h5>
+      <ul><li><a href="#">Materials</a></li><li><a href="#">Age guidance</a></li><li><a href="#">Privacy</a></li><li><a href="#">Returns</a></li></ul>
+    </div>
+  </div>
+  <div class="copyright">
+    <span>© 2025 Toyify Ltd · Made with ♡ in the UK</span>
+    <span>Drawings remain yours, always.</span>
+  </div>
+</footer>
+
+</body>
+</html>

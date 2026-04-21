@@ -1,0 +1,25 @@
+<!doctype html><html><head><meta charset="utf-8"><link rel="stylesheet" href="_shell.css">
+<style>
+  h3 { font: 600 12px var(--font-ui); color: var(--gray-500); letter-spacing: .08em; text-transform: uppercase; margin: 0 0 10px; }
+  .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .tile { border-radius: 24px; padding: 12px; background: var(--purple-50); border: 2px solid var(--purple-50); }
+  .tile.sel { border-color: var(--purple-600); box-shadow: var(--shadow-lg);}
+  .inner { border: 2px dashed var(--purple-300); border-radius: 16px; background: #fff; aspect-ratio: 1.2; display:flex; align-items:center; justify-content:center; color: var(--gray-400); font: 500 12px var(--font-body); position: relative; overflow:hidden;}
+  .mascot { width: 70%; height: auto; }
+  .tag { position:absolute; top:10px; right:10px; background: var(--purple-600); color:#fff; border-radius: 9999px; padding: 3px 10px; font: 600 10px var(--font-body); letter-spacing: .04em; }
+  .label { font: 600 12px var(--font-body); color: var(--gray-700); margin-top: 8px; padding: 0 4px;}
+</style></head><body>
+  <h3>Toy preview tiles — original drawing vs AI-generated concept</h3>
+  <div class="grid">
+    <div class="tile">
+      <div class="inner"><span class="tag" style="background:var(--gray-700)">Original</span>
+        <img class="mascot" src="../assets/test-penguin.jpeg" alt=""></div>
+      <div class="label">What you drew</div>
+    </div>
+    <div class="tile sel">
+      <div class="inner" style="background:linear-gradient(135deg,#FDE68A,#F9A8D4)"><span class="tag">AI preview</span>
+        <img class="mascot" src="../assets/Hero Video 2 1.png" alt=""></div>
+      <div class="label">Toyified concept</div>
+    </div>
+  </div>
+</body></html>
