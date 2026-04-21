@@ -1,0 +1,486 @@
+Toyify Project Plan & System Prompt
+Project Overview
+Toyify transforms children's drawings into custom STEM toys using AI. Mobile-first B2C web application serving UK children aged 7-15, with parents, caregivers, and STEM educators as customers.
+Live Site: https://toyify-frontend-ten.vercel.app/
+Repositories:
+
+Frontend: https://github.com/Mehredad/Toyify_frontend
+Backend: https://github.com/Mehredad/Toyify_backend
+
+
+Core User Flow (Updated)
+Upload-First Journey (No Login Required Initially)
+
+Landing Page → "Upload Your Drawing" CTA
+Upload & Story Creation (Guest mode)
+
+Upload drawing/scribble
+Add short story describing it
+Image stored in browser cache/localStorage
+Prompt: "Create your free account to see your toy concept!"
+
+
+Authentication Gate
+
+Register/Login (Google OAuth + email/password)
+During registration: Image transfers from cache → Supabase Storage
+Automatically: AI generation starts in background
+
+
+Child Profile Input (First-time users)
+
+Age, gender, relevant details
+Links to uploaded image
+
+
+AI Generation & Concept Display
+
+User sees loading state
+3D concept + enhanced STEM story generated
+Automatically displayed after generation complete
+Concept saved and linked to uploaded image in database
+
+
+Generation Limits & Credits System
+
+Daily free limit: 2 concepts per day (per email account)
+After first 2: 1 concept per 24 hours
+Credit system: £5 = 5 extra generation credits
+Clear feedback UI: "You have X generations remaining today" or "Next free generation available in X hours"
+
+
+Review & Iterate
+
+View concept, regenerate (costs 1 credit), or proceed to order
+
+
+Customization
+
+Finished toy vs. DIY (uncolored + free coloring set)
+
+
+Safety & Compliance
+
+Allergy declarations, T&Cs acceptance (UK/EU GDPR)
+
+
+Checkout
+
+Shipping address → Stripe payment link
+
+
+
+
+Technical Stack
+Frontend
+
+Framework: React 18.3 + Vite 5.4 + TypeScript
+Routing: React Router DOM v6
+UI Components: shadcn/ui (Radix UI primitives)
+Styling: Tailwind CSS 3.4 + tailwindcss-animate
+Forms: React Hook Form + Zod validation
+State: TanStack Query (React Query v5)
+Animations: Framer Motion (to be added)
+Icons: Lucide React
+
+Backend & Infrastructure
+
+Database: Supabase (PostgreSQL)
+Auth: Supabase Auth + Google OAuth
+Image Storage: Supabase Storage
+Cache: Browser localStorage (pre-auth uploads)
+Deployment: Vercel
+Payment: Stripe (checkout + credit purchases)
+
+AI Integrations
+
+Drawing Digitization: LightX Editor API - https://www.lightxeditor.com/
+3D Concept Generation: TBD (Meshy, Spline AI, or Kaedim)
+Story Enhancement: TBD (OpenAI GPT-4, Claude API, or similar)
+
+
+Data Architecture
+Supabase Schema
+Users Table
+sqlCREATE TABLE users (
+  id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+  email TEXT UNIQUE NOT NULL,
+  created_at TIMESTAMP DEFAULT NOW(),
+  role TEXT DEFAULT 'parent' -- parent, educator
+);
+Children Profiles
+sqlCREATE TABLE children (
+  id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+  user_id UUID REFERENCES users(id) ON DELETE CASCADE,
+  name TEXT NOT NULL,
+  age INTEGER NOT NULL,
+  gender TEXT,
+  preferences JSONB,
+  created_at TIMESTAMP DEFAULT NOW()
+);
+Generation Credits
+sqlCREATE TABLE user_credits (
+  id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+  user_id UUID REFERENCES users(id) ON DELETE CASCADE,
+  total_credits INTEGER DEFAULT 0, -- Purchased credits
+  daily_generations_used INTEGER DEFAULT 0,
+  last_generation_date DATE,
+  created_at TIMESTAMP DEFAULT NOW(),
+  updated_at TIMESTAMP DEFAULT NOW()
+);
+Uploaded Images
+sqlCREATE TABLE uploaded_images (
+  id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+  user_id UUID REFERENCES users(id) ON DELETE CASCADE,
+  child_id UUID REFERENCES children(id) ON DELETE SET NULL,
+  original_drawing_url TEXT NOT NULL,
+  digitized_image_url TEXT,
+  original_story TEXT,
+  upload_date TIMESTAMP DEFAULT NOW()
+);
+Generated Concepts
+sqlCREATE TABLE generated_concepts (
+  id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+  image_id UUID REFERENCES uploaded_images(id) ON DELETE CASCADE,
+  user_id UUID REFERENCES users(id) ON DELETE CASCADE,
+  concept_3d_url TEXT NOT NULL,
+  enhanced_story TEXT,
+  generation_date TIMESTAMP DEFAULT NOW(),
+  used_credit BOOLEAN DEFAULT FALSE -- TRUE if used paid credit
+);
+Orders
+sqlCREATE TABLE orders (
+  id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+  user_id UUID REFERENCES users(id) ON DELETE CASCADE,
+  child_id UUID REFERENCES children(id) ON DELETE SET NULL,
+  concept_id UUID REFERENCES generated_concepts(id) ON DELETE SET NULL,
+  toy_type TEXT NOT NULL, -- 'finished' or 'DIY'
+  allergy_notes TEXT,
+  shipping_address JSONB NOT NULL,
+  stripe_payment_id TEXT,
+  status TEXT DEFAULT 'pending', -- pending, paid, processing, shipped, completed
+  created_at TIMESTAMP DEFAULT NOW(),
+  updated_at TIMESTAMP DEFAULT NOW()
+);
+Credit Purchases
+sqlCREATE TABLE credit_purchases (
+  id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+  user_id UUID REFERENCES users(id) ON DELETE CASCADE,
+  credits_purchased INTEGER NOT NULL,
+  amount_paid DECIMAL(10,2) NOT NULL, -- £5.00
+  stripe_payment_id TEXT,
+  purchase_date TIMESTAMP DEFAULT NOW()
+);
+
+Generation Limits & Credits System
+Business Logic
+Daily Free Limits
+
+First 2 generations per day: FREE
+After first 2: 1 generation per 24 hours (FREE)
+Resets at midnight UTC
+
+Credit System
+
+Purchase: £5 = 5 generation credits
+Usage priority: Paid credits used before daily free limit
+No expiration: Credits persist indefinitely
+
+Rate Limiting Algorithm
+typescriptasync function checkGenerationEligibility(userId: string): Promise<{
+  canGenerate: boolean;
+  remainingFree: number;
+  paidCredits: number;
+  nextFreeAt?: Date;
+  message: string;
+}> {
+  const { data: credits } = await supabase
+    .from('user_credits')
+    .select('*')
+    .eq('user_id', userId)
+    .single();
+
+  const today = new Date().toISOString().split('T')[0];
+  const isNewDay = credits.last_generation_date !== today;
+
+  if (isNewDay) {
+    // Reset daily counter
+    credits.daily_generations_used = 0;
+  }
+
+  // Check paid credits first
+  if (credits.total_credits > 0) {
+    return {
+      canGenerate: true,
+      remainingFree: isNewDay ? 2 : Math.max(0, 2 - credits.daily_generations_used),
+      paidCredits: credits.total_credits,
+      message: `You have ${credits.total_credits} paid credits remaining.`
+    };
+  }
+
+  // Check daily free limit
+  if (credits.daily_generations_used < 2) {
+    return {
+      canGenerate: true,
+      remainingFree: 2 - credits.daily_generations_used,
+      paidCredits: 0,
+      message: `You have ${2 - credits.daily_generations_used} free generations remaining today.`
+    };
+  }
+
+  // Calculate next free generation time (24 hours from last)
+  const nextFree = new Date(credits.last_generation_date);
+  nextFree.setHours(nextFree.getHours() + 24);
+
+  return {
+    canGenerate: false,
+    remainingFree: 0,
+    paidCredits: 0,
+    nextFreeAt: nextFree,
+    message: `Next free generation available in ${getTimeRemaining(nextFree)}.`
+  };
+}
+UI Feedback Components
+Credit Display Badge
+typescript// Display in header/dashboard
+<Badge variant="outline">
+  <Coins className="w-4 h-4 mr-1" />
+  {paidCredits > 0 ? `${paidCredits} credits` : `${remainingFree} free today`}
+</Badge>
+Generation Limit Modal
+typescript// Show before generation if limits reached
+<AlertDialog>
+  <AlertDialogContent>
+    <AlertDialogHeader>
+      <AlertDialogTitle>Daily Limit Reached</AlertDialogTitle>
+      <AlertDialogDescription>
+        You've used all free generations today. 
+        Next free generation available in {timeRemaining}.
+        
+        Want to keep creating? Buy credits for £5 (5 generations).
+      </AlertDialogDescription>
+    </AlertDialogHeader>
+    <AlertDialogFooter>
+      <AlertDialogCancel>Wait</AlertDialogCancel>
+      <AlertDialogAction onClick={redirectToCreditsCheckout}>
+        Buy Credits (£5)
+      </AlertDialogAction>
+    </AlertDialogFooter>
+  </AlertDialogContent>
+</AlertDialog>
+
+Upload-First Flow Implementation
+Cache Strategy (Pre-Auth)
+localStorage Schema
+typescriptinterface CachedUpload {
+  imageDataUrl: string; // base64
+  story: string;
+  timestamp: number;
+  expiresAt: number; // 1 hour expiry
+}
+
+// Save to cache
+const saveToCache = (imageFile: File, story: string) => {
+  const reader = new FileReader();
+  reader.onload = (e) => {
+    const cached: CachedUpload = {
+      imageDataUrl: e.target?.result as string,
+      story,
+      timestamp: Date.now(),
+      expiresAt: Date.now() + 3600000 // 1 hour
+    };
+    localStorage.setItem('toyify_pending_upload', JSON.stringify(cached));
+  };
+  reader.readAsDataURL(imageFile);
+};
+Post-Auth Transfer Flow
+typescriptconst transferCachedUpload = async (userId: string) => {
+  const cached = localStorage.getItem('toyify_pending_upload');
+  if (!cached) return;
+
+  const { imageDataUrl, story } = JSON.parse(cached);
+  
+  // Convert base64 back to File
+  const blob = await fetch(imageDataUrl).then(r => r.blob());
+  const file = new File([blob], 'drawing.png', { type: 'image/png' });
+
+  // Upload to Supabase Storage
+  const { data: uploadData, error } = await supabase.storage
+    .from('drawings')
+    .upload(`${userId}/${Date.now()}.png`, file);
+
+  if (error) throw error;
+
+  // Save to database
+  const { data: imageRecord } = await supabase
+    .from('uploaded_images')
+    .insert({
+      user_id: userId,
+      original_drawing_url: uploadData.path,
+      original_story: story
+    })
+    .select()
+    .single();
+
+  // Trigger AI generation
+  await generateConcept(imageRecord.id, userId);
+
+  // Clear cache
+  localStorage.removeItem('toyify_pending_upload');
+};
+Background Generation Pattern
+typescriptconst generateConcept = async (imageId: string, userId: string) => {
+  // Check eligibility first
+  const eligibility = await checkGenerationEligibility(userId);
+  if (!eligibility.canGenerate) {
+    throw new Error(eligibility.message);
+  }
+
+  // Show loading state to user
+  toast.loading('Creating your toy concept...', { id: 'generation' });
+
+  // Digitize with LightX
+  const digitizedUrl = await lightxAPI.digitize(imageId);
+
+  // Generate 3D concept
+  const concept3dUrl = await generate3D(digitizedUrl);
+
+  // Enhance story
+  const enhancedStory = await enhanceStory(originalStory);
+
+  // Save concept
+  const { data: concept } = await supabase
+    .from('generated_concepts')
+    .insert({
+      image_id: imageId,
+      user_id: userId,
+      concept_3d_url: concept3dUrl,
+      enhanced_story: enhancedStory,
+      used_credit: eligibility.paidCredits > 0
+    })
+    .select()
+    .single();
+
+  // Update credits
+  await updateUserCredits(userId, eligibility.paidCredits > 0);
+
+  // Redirect to concept view
+  toast.success('Your toy is ready!', { id: 'generation' });
+  router.push(`/concept/${concept.id}`);
+};
+
+Design System Strategy
+Brand Identity (To Create)
+Color Palette
+
+Primary: Vibrant, playful (e.g., bright blue #2563EB)
+Secondary: STEM accent (e.g., science green #10B981)
+Success: Friendly green (#22C55E)
+Warning: Soft orange (#F59E0B)
+Error: Approachable red (#EF4444)
+Neutrals: Warm grays (not cold)
+
+Typography
+
+Headings: Fredoka or Nunito (playful, rounded)
+Body: Inter or Lexend (dyslexia-friendly)
+Comic elements: Comic Neue (story sections)
+
+Component Customization
+Buttons:
+
+Large touch targets (min 48px height)
+Rounded corners (12px)
+Playful hover animations (scale, shadow)
+
+Cards:
+
+Soft shadows
+Colorful borders (subtle)
+Image zoom on hover
+
+Upload Zone:
+
+Dotted border animation
+Drag-and-drop feedback
+Preview thumbnails
+Progress bar for upload
+
+Comic Story Editor:
+
+Speech bubble components
+Panel layout system
+Illustrated backgrounds
+Character/scene decorations
+
+Credit Badge:
+
+Coin icon animation
+Pulsing effect when low
+Color-coded (green = credits, orange = low, red = none)
+
+Landing Page Animations
+Hero Section:
+
+Parallax toy images floating
+Text reveals on scroll (stagger)
+Interactive 3D preview (hover rotate)
+CTA button pulse animation
+
+How It Works Section:
+
+Step-by-step reveal (Intersection Observer)
+Icon animations (draw SVG paths)
+Image slides in from sides
+
+Performance:
+
+Use Framer Motion with layout animations
+GPU-accelerated transforms
+Lazy-load below fold
+
+
+Compliance & Legal
+GDPR Implementation
+Parental Consent (Users <13)
+typescriptinterface ParentalConsent {
+  childAge: number;
+  parentEmail: string;
+  consentGiven: boolean;
+  consentDate: Date;
+}
+
+// During registration
+if (childAge < 13) {
+  return (
+    <Alert>
+      <AlertTitle>Parental Consent Required</AlertTitle>
+      <AlertDescription>
+        Children under 13 require parental consent. 
+        We'll send a verification email to your parent/guardian.
+      </AlertDescription>
+    </Alert>
+  );
+}
+Data Processing Transparency
+
+Privacy Policy Link: Header + Footer + Pre-checkout
+What We Collect: Drawings, stories, child profiles, shipping addresses
+How We Use It: AI processing, order fulfillment, service improvement
+Retention: Images/concepts kept until account deletion
+Third Parties: LightX, 3D AI provider, Stripe (listed explicitly)
+
+Cookie Consent
+typescript// Add react-cookie-consent
+import CookieConsent from "react-cookie-consent";
+
+<CookieConsent
+  location="bottom"
+  buttonText="Accept"
+  declineButtonText="Decline"
+  enableDeclineButton
+  cookieName="toyify_consent"
+>
+  We use cookies to improve your experience and analyze usage.
+  <Link to="/privacy">Privacy Policy</Link>
+</CookieConsent>
