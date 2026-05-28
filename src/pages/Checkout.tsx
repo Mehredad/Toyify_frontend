@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { Check, ArrowRight, ShieldCheck } from "lucide-react";
+import { useAuth } from "@/context/AuthContext";
 
 interface FormData {
   fullName: string;
@@ -18,6 +19,7 @@ interface FormData {
 export default function Checkout() {
   const location = useLocation();
   const navigate = useNavigate();
+  const { user } = useAuth();
   const cartItems = (() => {
     if (location.state?.cartItems?.length) return location.state.cartItems;
     // Pick up cart saved before the login redirect
@@ -113,15 +115,25 @@ export default function Checkout() {
 
   const handleCheckout = async () => {
     if (checkingOut) return;
-    // Preview shortcut: if no cart items, go straight to success to show the page
     if (cartItems.length === 0) { navigate("/success"); return; }
     try {
       setCheckingOut(true);
-      const token = localStorage.getItem("token");
 
-      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/orders`, {
+      // Collect toy metadata saved during the generation flow
+      const conceptImageUrl = sessionStorage.getItem("generatedConceptUrl") || cartItems[0]?.conceptImageUrl || "";
+      const toyName = sessionStorage.getItem("toyName") || cartItems[0]?.orderName || "";
+      const storyTitle = sessionStorage.getItem("storyTitle") || cartItems[0]?.storyTitle || "";
+      const artistName = sessionStorage.getItem("artistName") || "";
+      const artistAge = sessionStorage.getItem("artistAge") || "";
+      const artistGender = sessionStorage.getItem("artistGender") || "";
+      const artistInterests: string[] = JSON.parse(sessionStorage.getItem("artistInterests") || "[]");
+      const uploadedImageB64 = sessionStorage.getItem("uploadedImage") || "";
+      const tier = cartItems[0]?.type?.toLowerCase().includes("diy") ? "diy" : "crafted";
+
+      const apiBase = import.meta.env.VITE_API_URL || "";
+      const res = await fetch(`${apiBase}/api/create-checkout-session`, {
         method: "POST",
-        headers: { "Content-Type": "application/json", ...(token ? { Authorization: `Bearer ${token}` } : {}) },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           customerEmail: formData.email,
           fullName: formData.fullName,
@@ -143,15 +155,26 @@ export default function Checkout() {
             description: item.description || "",
             price: item.price ?? 0,
           })),
+          toyName,
+          artistName,
+          artistAge,
+          artistGender,
+          artistInterests,
+          conceptImageUrl,
+          storyTitle,
+          tier,
+          userId: user?.id || "",
+          uploadedImageB64,
         }),
       });
 
       const data = await res.json();
-      if (!res.ok) throw new Error(data?.message || "Checkout failed");
+      if (!res.ok) throw new Error(data?.detail || data?.message || "Checkout failed");
 
-      navigate("/success");
+      // Redirect to Stripe's hosted payment page
+      window.location.href = data.url;
     } catch (err: any) {
-      alert(err?.message || "Failed to place order. Please try again.");
+      alert(err?.message || "Failed to start payment. Please try again.");
     } finally {
       setCheckingOut(false);
     }
@@ -544,7 +567,7 @@ export default function Checkout() {
                   Placing order…
                 </>
               ) : (
-                <>Place order <ArrowRight className="w-4 h-4" /></>
+                <>Continue to payment <ArrowRight className="w-4 h-4" /></>
               )}
             </button>
 
@@ -573,7 +596,7 @@ export default function Checkout() {
               Placing order…
             </>
           ) : (
-            <>Place order — £{total.toFixed(2)} <ArrowRight className="w-4 h-4" /></>
+            <>Continue to payment — £{total.toFixed(2)} <ArrowRight className="w-4 h-4" /></>
           )}
         </button>
       </div>
