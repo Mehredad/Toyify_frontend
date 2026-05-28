@@ -81,7 +81,7 @@ const App = () => (
   <QueryClientProvider client={queryClient}>
     <TooltipProvider>
       <AuthProvider>
-        <BrowserRouter basename={import.meta.env.VITE_ROUTER_BASENAME ?? ""} future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
+        <BrowserRouter basename={window.location.hostname.includes("github.io") ? "/Toyify_frontend" : ""} future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
           <AppRoutes />
         </BrowserRouter>
       </AuthProvider>
