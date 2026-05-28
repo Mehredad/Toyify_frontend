@@ -241,9 +241,24 @@ export default function Result() {
     },
   };
 
-  // Parse story into paragraphs for proper display
-  const storyParagraphs = toyStory
-    ? toyStory.split(/\n\n+/).map((p) => p.trim()).filter(Boolean)
+  // Parse story into paragraphs — strip any leftover JSON wrapper if parser missed it
+  const cleanStory = (() => {
+    if (!toyStory) return "";
+    const t = toyStory.trim();
+    if (t.startsWith("{") || t.startsWith("[")) {
+      try {
+        const obj = JSON.parse(t);
+        if (typeof obj?.story === "string") return obj.story;
+      } catch {
+        // try to extract "story": "..." with regex as last resort
+        const m = t.match(/"story"\s*:\s*"([\s\S]*?)(?<!\\)",\s*"(?:stem|toy)/);
+        if (m) return m[1].replace(/\\n/g, "\n").replace(/\\"/g, '"');
+      }
+    }
+    return t;
+  })();
+  const storyParagraphs = cleanStory
+    ? cleanStory.split(/\n\n+/).map((p) => p.trim()).filter(Boolean)
     : [];
 
   return (

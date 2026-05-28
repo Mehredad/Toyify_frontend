@@ -56,36 +56,19 @@ const LoginForm: React.FC<Props> = ({ onSwitchToSignup, onLoginSuccess }) => {
     }
   };
 
-  // Google login
-  const handleGoogleLogin = async (credentialResponse: any) => {
+  // Google login — decode JWT payload locally (no backend call needed)
+  const handleGoogleLogin = (credentialResponse: any) => {
     const credential = credentialResponse.credential;
     if (!credential) return;
 
     try {
-      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/auth/google-login`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ token: credential }),
-      });
-
-      const data = await res.json();
-      if (!res.ok) throw new Error(data?.message || "Google login failed");
-
-      // ✅ update context
-      login(data.user, data.token);
-
-      toast({
-        title: "Google login successful",
-        description: `Welcome ${data.user.username}`,
-      });
-
-      if (onLoginSuccess) onLoginSuccess(); // close modal
+      const payload = JSON.parse(atob(credential.split(".")[1]));
+      const user = { name: payload.name, email: payload.email, username: payload.name };
+      login(user, credential);
+      toast({ title: "Google login successful", description: `Welcome ${payload.name}` });
+      if (onLoginSuccess) onLoginSuccess();
     } catch (err: any) {
-      toast({
-        title: "Google login failed",
-        description: err.message,
-        variant: "destructive",
-      });
+      toast({ title: "Google login failed", description: err.message, variant: "destructive" });
     }
   };
 

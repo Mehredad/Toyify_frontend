@@ -1,4 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Caveat:wght@400;700&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&family=Lexend:wght@400;500;600;700&family=Permanent+Marker&family=Space+Grotesk:wght@500;600;700&display=swap");
+@import "./design-system/tokens.css";
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -581,7 +582,7 @@ All colors MUST be HSL.
 
 /* Top desktop links */
 .nav-link {
-  @apply text-white/90 hover:text-white text-sm font-medium transition-colors;
+  @apply text-white/90 hover:text-white text-sm font-medium transition-colors cursor-pointer;
 }
 
 /* Desktop auth buttons */

@@ -74,7 +74,6 @@ export const BuzzyLanding: React.FC<BuzzyLandingProps> = ({
   console.log("Zain here is user", user);
 
   // Restore pending order after login (non-PII data only for security)
-  x;
   // const [direction, setDirection] = useState<"forward" | "backward">("forward");
   const [file, setFile] = useState<File | null>(null);
   const [uploadedImage, setUploadedImage] = useState<string | null>(null);
@@ -477,7 +476,7 @@ export const BuzzyLanding: React.FC<BuzzyLandingProps> = ({
               className="flex items-center gap-2 text-white hover:opacity-90 transition-opacity"
             >
               <img
-                src="/Logo.svg"
+                src="./Logo.svg"
                 alt="Toyify Logo"
                 className="w-15 h-15 object-contain"
               />

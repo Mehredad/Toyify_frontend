@@ -87,9 +87,12 @@ export default function Generating() {
         if (d.storyTitle)       sessionStorage.setItem("storyTitle",     d.storyTitle);
         if (d.stemHighlights)   sessionStorage.setItem("stemHighlights", JSON.stringify(d.stemHighlights));
         if (d.toyPersonality)   sessionStorage.setItem("toyPersonality", d.toyPersonality);
+      } else {
+        const errText = await storyRes.text().catch(() => "unknown");
+        console.error("[Toyify] Story generation failed:", storyRes.status, errText);
       }
-    } catch {
-      // Result page handles missing data gracefully
+    } catch (err) {
+      console.error("[Toyify] Generation error:", err);
     } finally {
       setIsDone(true);
     }
