@@ -15,17 +15,7 @@ export default defineConfig(({ mode }) => ({
       },
     },
   },
-  plugins: [
-    react(),
-    // lovable-tagger is dev-only and loaded lazily to avoid CI failures
-    mode === "development" && (() => {
-      try {
-        // eslint-disable-next-line @typescript-eslint/no-require-imports
-        const { componentTagger } = require("lovable-tagger");
-        return componentTagger();
-      } catch { return null; }
-    })(),
-  ].filter(Boolean),
+  plugins: [react()],
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),
