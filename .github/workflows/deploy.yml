@@ -6,17 +6,8 @@ on:
       - main
       - fix/api-proxy-story-display-cart-flow
 
-permissions:
-  contents: read
-  pages: write
-  id-token: write
-
-concurrency:
-  group: pages
-  cancel-in-progress: true
-
 jobs:
-  build:
+  deploy:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -27,30 +18,21 @@ jobs:
           cache: npm
 
       - name: Install dependencies
-        run: npm ci
+        run: npm install --legacy-peer-deps
 
       - name: Build
         env:
-          # Public client-side keys — safe to include in workflow
           VITE_SUPABASE_URL: https://qbzkdgesgyyjabxhprdj.supabase.co
           VITE_SUPABASE_ANON_KEY: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFiemtkZ2VzZ3l5amFieGhwcmRqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY3OTI5ODgsImV4cCI6MjA5MjM2ODk4OH0.ryckZHCvZ1D_dk4NTFBv1MUxnS7007y2v4THUVdMtiE
           VITE_GOOGLE_CLIENT_ID: 519611045015-p9hrbm9e8u8l5hb6kin1e870biuvoj12.apps.googleusercontent.com
           VITE_API_URL: ""
         run: npm run build
 
-      - name: Fix SPA routing (copy index.html -> 404.html)
+      - name: Fix SPA routing
         run: cp dist/index.html dist/404.html
 
-      - uses: actions/upload-pages-artifact@v3
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v4
         with:
-          path: dist
-
-  deploy:
-    needs: build
-    runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    steps:
-      - id: deployment
-        uses: actions/deploy-pages@v4
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./dist
