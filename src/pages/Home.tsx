@@ -86,7 +86,7 @@ export default function Home() {
         {/* Breadcrumb */}
         <div className="inline-flex items-center gap-1 lg:gap-2 text-[10px] lg:text-xs mb-3 lg:mb-4 w-auto p-[4px] lg:p-[5px] rounded-full bg-accent/80">
           <span className="bg-primary/15 text-primary px-1.5 lg:px-2 py-0.5 rounded-full text-[10px] lg:text-xs">🚀 Let's <span className="font-bold">toyify</span></span>
-          <span className="text-primary/85 text-[10px] lg:text-xs">tangible treasures <span><img src="/arrow.png" alt="Arrow" className="inline-block w-2 lg:w-3 h-2 lg:h-3 ml-1" /></span></span>
+          <span className="text-primary/85 text-[10px] lg:text-xs">tangible treasures <span><img src="./arrow.png" alt="Arrow" className="inline-block w-2 lg:w-3 h-2 lg:h-3 ml-1" /></span></span>
         </div>
 
         <div className="grid lg:grid-cols-2 gap-6 lg:gap-10 items-start">
@@ -156,14 +156,14 @@ export default function Home() {
                 origin-top
               ">
               <img
-                src="/Hero Video 2 1.png"
+                src="./Hero Video 2 1.png"
                 alt="Toy Preview"
                 className="w-full h-auto max-w-[300px] lg:max-w-md"
               />
 
               {/* Feature Image*/}
               <img
-                src="/Video frame.png"
+                src="./Video frame.png"
                 alt="Ready in 5-7 days"
                 className="
                   absolute

@@ -197,7 +197,7 @@ navigate(redirectAfterLogin); // goes to /cart if that’s where the user wanted
     <div className="w-full">
       {/* Header */}
       <div className="flex justify-center mb-6">
-        <img src="/Logo.png" alt="Buzzy" className="h-10" />
+        <img src="./Logo.png" alt="Buzzy" className="h-10" />
       </div>
 
       <h1 className="text-2xl font-semibold text-gray-900 text-center mb-2">

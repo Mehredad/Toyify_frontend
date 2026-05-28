@@ -109,7 +109,7 @@ export default function Navbar({
               className="flex items-center gap-4 text-white hover:opacity-90 transition-opacity"
             >
               <img
-                src="/Logo.svg"
+                src="./Logo.svg"
                 alt="Toyify Logo"
                 className="w-15 h-15 object-contain"
               />

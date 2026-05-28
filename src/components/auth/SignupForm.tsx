@@ -117,7 +117,7 @@ const SignupForm: React.FC<Props> = ({ onSwitchToLogin }) => {
     <div className="max-h-screen flex items-center justify-center p-4">
       <div className="bg-white rounded-lg shadow-sm w-full max-w-md p-8">
         <div className="flex justify-center mb-6">
-          <img src="/Logo.png" alt="Toyify" className="h-10" />
+          <img src="./Logo.png" alt="Toyify" className="h-10" />
         </div>
 
         <h1 className="text-2xl font-semibold text-gray-900 text-center mb-2">
