@@ -27,6 +27,7 @@ jobs:
           VITE_SUPABASE_ANON_KEY: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFiemtkZ2VzZ3l5amFieGhwcmRqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY3OTI5ODgsImV4cCI6MjA5MjM2ODk4OH0.ryckZHCvZ1D_dk4NTFBv1MUxnS7007y2v4THUVdMtiE
           VITE_GOOGLE_CLIENT_ID: 519611045015-p9hrbm9e8u8l5hb6kin1e870biuvoj12.apps.googleusercontent.com
           VITE_API_URL: ""
+          VITE_ROUTER_BASENAME: /Toyify_frontend
         run: npm run build
 
       - name: Fix SPA routing
