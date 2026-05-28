@@ -20,13 +20,16 @@ jobs:
       - name: Install dependencies
         run: npm install --legacy-peer-deps
 
+      - name: Debug env
+        run: node --version && npm --version && ls node_modules/.bin/vite 2>&1 || echo "vite not found"
+
       - name: Build
         env:
           VITE_SUPABASE_URL: https://qbzkdgesgyyjabxhprdj.supabase.co
           VITE_SUPABASE_ANON_KEY: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFiemtkZ2VzZ3l5amFieGhwcmRqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY3OTI5ODgsImV4cCI6MjA5MjM2ODk4OH0.ryckZHCvZ1D_dk4NTFBv1MUxnS7007y2v4THUVdMtiE
           VITE_GOOGLE_CLIENT_ID: 519611045015-p9hrbm9e8u8l5hb6kin1e870biuvoj12.apps.googleusercontent.com
           VITE_API_URL: ""
-        run: npm run build
+        run: npx vite build --logLevel info 2>&1
 
       - name: Fix SPA routing
         run: cp dist/index.html dist/404.html
